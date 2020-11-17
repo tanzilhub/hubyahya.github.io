@@ -92,6 +92,8 @@ task :travis => :check do
   repo = %x(git config remote.origin.url).gsub(/^git:/, 'https:')
   deploy_branch = 'master'
   msg "Building '#{deploy_branch}' branch using production profile..."
+  system "git add ."
+  system "git commit -m 'deloy production'"
   system "git remote set-url --push origin #{repo}"
   system "git remote set-branches --add origin #{deploy_branch}"
   system 'git fetch -q'
