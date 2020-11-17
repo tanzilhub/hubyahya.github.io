@@ -67,12 +67,6 @@ task :push do
   system 'git push origin website-migration'
 end
 
-task :generate do
-  Jekyll::Site.new(Jekyll.configuration({
-    "source"      => ".",
-    "destination" => "_site"
-  })).process
-end
 
 desc 'Generate the site and deploy to production branch using local dev environment'
 task :deploy => [:check, :push] do
@@ -199,29 +193,38 @@ def msg(text, level = :info)
     puts "\e[33m#{text}\e[0m"
   end
 end
+require "jekyll"
+require "tmpdir"
+
+GITHUB_REPONAME = "hubyahya/hubyahya.github.io"
+GITHUB_REMOTE = "https://#{ENV['GH_TOKEN']}@github.com/#{GITHUB_REPONAME}"
+
+desc "Generate blog files"
 task :generate do
-  Jekyll::Site.new(Jekyll.configuration({
-    "source"      => ".",
-    "destination" => "_site"
-  })).process
+    Jekyll::Site.new(Jekyll.configuration({
+        "source"      => ".",
+        "destination" => "_site"
+    })).process
 end
 
-desc "Génération et publication des fichiers sur GitHub"
+desc "Generate and publish blog to gh-pages"
 task :publish => [:generate] do
-  Dir.mktmpdir do |tmp|
-    cp_r "_site/.", tmp
-    
-    pwd = Dir.pwd
-    Dir.chdir tmp
-    File.open(".nojekyll", "wb") { |f| f.puts("Site généré localement.") }
-    
-    system "git init"
-    system "git add ."
-    message = "Site mis à jour le #{Time.now.utc}"
-    system "git commit -m #{message.inspect}"
-    system "git remote add origin git@github.com:#{GITHUB_REPONAME}.git"
-    system "git push origin master:refs/heads/gh-pages --force"
+    fail "Not on Travis" if "#{ENV['TRAVIS']}" != "true"
 
-    Dir.chdir pwd
-  end
+    Dir.mktmpdir do |tmp|
+        cp_r "_site/.", tmp
+
+        Dir.chdir tmp
+
+        system "git init"
+        system "git config user.name 'hubyaya'"
+        system "git config user.email 'shamshad.alam2@gmail.com'"
+
+        system "git add ."
+        message = "Site updated at #{Time.now.utc}"
+        system "git commit -m #{message.inspect}"
+        system "git remote add origin #{GITHUB_REMOTE}"
+        system "git push --force origin master"
+    end
 end
+
