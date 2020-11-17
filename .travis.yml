@@ -14,6 +14,7 @@ before_install:
   - docker ps -a
   - ls -la ./_site/documentation
   - touch ./_site/.nojekyll
+  - bundle update jekyll
 script: rake travis
 env:
   global:
