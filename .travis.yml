@@ -7,7 +7,6 @@ branches:
   only:
   - website-migration
 before_install:
-  - gem install --no-rdoc --no-ri bundler jekyll rake
   - docker pull antora/antora:2.3.0-alpha.2
   - docker run -it --rm --privileged --user=$UID:$UID -v $(pwd):/site -w="/site" antora/antora:2.3.0-alpha.2 --cache-dir=./_antora_cache --stacktrace playbook.yml
   - ls -la ./_antora_cache/content
