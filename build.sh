@@ -32,8 +32,8 @@ function deploy {
 	    exit 0
 	fi  
 
-	if [ "$TRAVIS_BRANCH" != "build" ]; then
-	    echo "except we should only publish the build branch. stopping here"
+	if [ "$TRAVIS_BRANCH" != "website-migration" ]; then
+	    echo "except we should only publish the website-migration branch. stopping here"
 	    exit 0
 	fi
 
