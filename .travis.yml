@@ -23,6 +23,7 @@ install:
 
 script: 
   - "./build.sh"
+  
 addons:
   apt:
     packages:
