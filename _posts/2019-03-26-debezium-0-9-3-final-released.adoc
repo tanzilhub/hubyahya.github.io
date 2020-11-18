@@ -1,10 +1,10 @@
 ---
+layout: post
+title:  Debezium 0.9.3.Final Released
+date:   2019-03-26 10:19:59 -0600
 tags: [ releases, mysql, mongodb, postgres, sqlserver, docker ]
+author: jpechane
 ---
-= Debezium 0.9.3.Final Released
-jpechane
-:awestruct-tags: [ releases, mysql, mongodb, postgres, sqlserver, docker ]
-:awestruct-layout: blog-post
 
 The Debezium team is happy to announce the release of Debezium *0.9.3.Final*!
 
@@ -13,6 +13,8 @@ Overall, https://issues.redhat.com/issues/?jql=project%20%3D%20DBZ%20AND%20fixVe
 
 [NOTE]
 Container images will be released with a small delay due to some Docker Hub configuration issues.
+
++++<!-- more -->+++
 
 == New Features
 
@@ -30,7 +32,7 @@ Its usage will be described in the documentation soon; for the time being please
 
 == Bug fixes
 
-We did a couple of fixes related to the link:/docs/connectors/postgres/[Debezium Postgres connector]:
+We did a couple of fixes related to the link:/docs/connectors/postgresql/[Debezium Postgres connector]:
 
 * A regression that introduced a deadlock in snapshotting process has been fixed (https://issues.redhat.com/browse/DBZ-1161[DBZ-1161])
 * The `hstore` datatype works correctly in snapshot phase (https://issues.redhat.com/browse/DBZ-1162[DBZ-1162])

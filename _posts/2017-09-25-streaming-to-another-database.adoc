@@ -1,10 +1,10 @@
 ---
+layout: post
+title:  Streaming data to a downstream database
+date:   2017-09-25 10:19:59 -0600
 tags: [ mysql, postgres, smt, example ]
+author: jpechane
 ---
-= Streaming data to a downstream database
-jpechane
-:awestruct-tags: [ mysql, postgres, smt, example ]
-:awestruct-layout: blog-post
 
 In this blog post we will create a simple streaming data pipeline to continuously capture the changes in a MySQL database and replicate them in near real-time into a PostgreSQL database.
 We'll show how to do this without writing any code, but instead by using and configuring Kafka Connect, the Debezium MySQL source connector, the Confluent JDBC sink connector, and a few single message transforms (SMTs).
@@ -15,13 +15,18 @@ What's great about Kafka Connect is that you can mix and match connectors to mov
 
 We will also demonstrate a new functionality that was released with link:2017/09/21/debezium-0-6-0-released/[Debezium 0.6.0]: a single message transform for link:/docs/configuration/event-flattening/[CDC Event Flattening].
 
++++<!-- more -->+++
+
 == Topology
 The general topology for this scenario is displayed on the following picture:
 
-.A General topology
-[#img-general]
-[caption="Figure 1: "]
-image::dbz-to-jdbc.svg[Scenario topology]
+[.centered-image.responsive-image]
+====
+++++
+<img src="/assets/images/dbz-to-jdbc.svg" style="max-width:100%;" class="responsive-image">
+++++
+Figure 1: A General topology
+====
 
 &nbsp; +
 
@@ -30,10 +35,13 @@ I.e. this instance will serve as an event producer and an event consumer:
 
 &nbsp; +
 
-.A Simplified topology
-[#img-general]
-[caption="Figure 2: "]
-image::dbz-to-jdbc-simplified.svg[Scenario topology]
+[.centered-image.responsive-image]
+====
+++++
+<img src="/assets/images/dbz-to-jdbc-simplified.svg" style="max-width:100%;" class="responsive-image">
+++++
+Figure 2: A Simplified topology
+====
 
 == Configuration
 We will use this https://github.com/debezium/debezium-examples/tree/master/unwrap-smt[compose] for a fast deployment of the demo.

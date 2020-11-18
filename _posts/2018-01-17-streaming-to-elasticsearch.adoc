@@ -1,11 +1,11 @@
 ---
-tags: [ mysql, postgres, elasticsearch, smt, example, featured ]
+layout: post
+title:  Streaming Data Changes from Your Database to Elasticsearch
+date:   2018-01-17 10:19:59 -0600
+tags: [ mysql, postgres, elasticsearch, smt, example ]
 featured: true
+author: jpechane
 ---
-= Streaming Data Changes from Your Database to Elasticsearch
-jpechane
-:awestruct-tags: [ mysql, postgres, elasticsearch, smt, example, featured ]
-:awestruct-layout: blog-post
 
 We wish all the best to the Debezium community for 2018!
 
@@ -13,6 +13,8 @@ While we're working on the 0.7.2 release, we thought we'd publish another post d
 We have seen how to set up a change data stream to a downstream database link:/blog/2017/09/25/streaming-to-another-database/[a few weeks ago].
 In this blog post we will follow the same approach to stream the data to an https://www.elastic.co/[Elasticsearch] server to leverage its excellent capabilities for full-text search on our data.
 But to make the matter a little bit more interesting, we will stream the data to both, a PostgreSQL database and Elasticsearch, so we will optimize access to the data via the SQL query language as well as via full-text search.
+
++++<!-- more -->+++
 
 == Topology
 Here's a diagram that shows how the data is flowing through our distributed system.
@@ -22,10 +24,12 @@ And, at the same time, the Confluent https://github.com/confluentinc/kafka-conne
 
 &nbsp; +
 
-.A general topology
-[#img-general]
-[caption="Figure 1: "]
-image::dbz-to-multiple.svg[Scenario topology]
+====
+++++
+<img src="/assets/images/dbz-to-multiple.svg" style="max-width:100%;" class="responsive-image">
+++++
+Figure 1: A general topology
+====
 
 &nbsp; +
 
@@ -35,10 +39,12 @@ In this example, we'll deploy all three connectors to a single Kafka Connect ins
 
 &nbsp; +
 
-.A simplified topology
-[#img-general]
-[caption="Figure 2: "]
-image::dbz-to-multiple-simplified.svg[Scenario topology]
+====
+++++
+<img src="/assets/images/dbz-to-multiple-simplified.svg" style="max-width:100%;" class="responsive-image">
+++++
+Figure 2: A simplified topology
+====
 
 == Configuration
 
