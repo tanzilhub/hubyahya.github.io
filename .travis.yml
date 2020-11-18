@@ -17,13 +17,6 @@ before_script:
 
 before_install:
   - gem update bundler
-  - docker pull antora/antora:2.3.0-alpha.2
-  - docker run -it --rm --privileged --user=$UID:$UID -v $(pwd):/site -w="/site" antora/antora:2.3.0-alpha.2 --cache-dir=./_antora_cache --stacktrace playbook.yml
-  - ls -la ./_antora_cache/content
-  - rm -rf ./_antora_cache
-  - docker ps -a
-  - ls -la ./_site/documentation
-  - touch ./_site/.nojekyll
   
 install:
   - bundle install  
