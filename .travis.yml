@@ -1,12 +1,22 @@
 language: ruby
 rvm:
-  - 2.4
+  - 2.6.3
+
 services:
   - docker
+
+# cache: bundler # caching bundler gem packages will speed up build
+
+# branch whitelist, only for GitHub Pages
 branches:
   only:
-  - website-migration
+  - build     # test the gh-pages branch
+
+before_script:
+ - chmod +x ./script/cibuild
+
 before_install:
+  - chmod +x ./script/cibuild # or do this locally and commit
   - docker pull antora/antora:2.3.0-alpha.2
   - docker run -it --rm --privileged --user=$UID:$UID -v $(pwd):/site -w="/site" antora/antora:2.3.0-alpha.2 --cache-dir=./_antora_cache --stacktrace playbook.yml
   - ls -la ./_antora_cache/content
@@ -14,10 +24,21 @@ before_install:
   - docker ps -a
   - ls -la ./_site/documentation
   - touch ./_site/.nojekyll
-  - bundle update jekyll
-script: rake generate
-after_success:
-  - rake publish
+
+install:
+  - bundle install  
+
+script: ./script/cibuild
+addons:
+  apt:
+    packages:
+    - libcurl4-openssl-dev
+
+# Optional: disable email notifications about the outcome of your builds
+notifications:
+  email: false   
+
+sudo: false   
 env:
   global:
   - secure: bLwcw0yZALDO8Z8Uy23rHb6ZEZotB1ikZP7wNR6xKC8jGkaBmEi3SAvfeMGbcUdew346Y0TsdDvF3GV8uGw4n+Xrri7fnBferZxjaX1M32lam8zRKNs0H1RDtv2yNFDkIzFEEAVy4h6foeaM9EON6+wOd9MWtrrcMq30CS1iuFTe6FM3pIoGF2rVlpYq7FceoPmj0mLGKxS8i6sVjKK+/F5JfsswquQvEEBNTpJT8hD6DFJcogbY9O/EpwyXkmwGMO1xVJ7mfgI4sl7ced1iYGcP1Vh1536ruP0jS8KfZxVuH6zRctRupxOM22Xa1jIqw6x+sUglvvpISwujLrEL1adPEuDYzawsixjyM196TI+7gzWUwld5YuWkorFD0IJwZ+E/zw13HlEY3ohi7B8C16kYxknkeDZDJm/6ZaCl5SuhsMZ5qQl/Lh9bc87JjQ/V9ecUqem8ycUFyWIURptRTFyfbpFyBdkiGt0VxsAGPyIfkZXCFs6I7fn5RQa0yNMQFm1kLIAi/damK1Jdg1eyK8pqY5E77sQg5NM3UFYoWFs+aD0DrarexLB1EAYc1RLlWOr4jsj3dan6Jx785U4mL0NU3uRuiDNNV+vuiTraqZujMCh3DShnj3upAlh1l7ushrTRW/wrfxOEH+qhYdrfULEHlNZ/BiL/aoaU0HD6a1o=
