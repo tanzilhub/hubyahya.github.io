@@ -10,7 +10,7 @@ services:
 # branch whitelist, only for GitHub Pages
 branches:
   only:
-  - build     # test the gh-pages branch
+  - website-migration     # test the gh-pages branch
 
 before_script:
  - chmod +x ./script/cibuild
