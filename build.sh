@@ -5,7 +5,7 @@ DEPLOY_REPO="https://${DEBEZIUM}@github.com/hubyahya/hubyahya.github.io.git"
 function main {
 	clean
 	build_site
-	get_current_site
+	# get_current_site
 	deploy
 }
 
