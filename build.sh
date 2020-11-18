@@ -4,8 +4,8 @@ DEPLOY_REPO="https://${DEBEZIUM}@github.com/hubyahya/hubyahya.github.io.git"
 
 function main {
 	clean
-	get_current_site
 	build_site
+	get_current_site
 	deploy
 }
 
@@ -43,7 +43,7 @@ function deploy {
 	git add -A
 	git status
 	git commit -m "Lastest site built on successful travis build $TRAVIS_BUILD_NUMBER auto-pushed to github"
-	git push $DEPLOY_REPO HEAD:master --force
+	git push $DEPLOY_REPO HEAD:master
 }
 
 main
