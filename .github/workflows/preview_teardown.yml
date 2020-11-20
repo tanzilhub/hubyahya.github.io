@@ -13,7 +13,7 @@ jobs:
         id: preview_step
         with:
           surge_token: ${{ secrets.SURGE_TOKEN }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.PUBLISH_GH_TOKEN }}
           teardown: 'true'
           failOnError: 'false'
           build: |
