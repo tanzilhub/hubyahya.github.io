@@ -10,15 +10,15 @@ jobs:
   deploy:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
       - name: Pull Docker image
         run: docker pull antora/antora:2.3.0-alpha.2
-      - name: Build
+      - name: Build Antora
         run: docker run --rm --privileged --user=$UID:$UID -v $(pwd):/site -w="/site" antora/antora:2.3.0-alpha.2 --cache-dir=./_antora_cache --stacktrace playbook.yml
       - name: List antora content
         run: ls -la ./_antora_cache/content
       - name: List antora content
         run: rm -rf ./_antora_cache
+      - uses: actions/checkout@v2
       # Use GitHub Actions' cache to shorten build times and decrease load on servers
       - uses: actions/cache@v1
         with:
