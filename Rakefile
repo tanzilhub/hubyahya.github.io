@@ -54,9 +54,6 @@ if [ $TRAVIS_PULL_REQUEST == "true" ]; then
   exit 0
 fi
 
-# enable error reporting to the console
-set -e
-
 $use_bundle_exec = false
 $antora_config = "playbook.yml"
 task :default => :preview
