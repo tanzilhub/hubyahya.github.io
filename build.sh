@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SOURCE_BRANCH="website-master"
+SOURCE_BRANCH="website-integration"
 TARGET_BRANCH="master"
 GH_REF="github.com/hubyahya/hubyahya.github.io"
 DIST_FOLDER="_site"
