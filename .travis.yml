@@ -28,8 +28,7 @@ before_install:
 install:
   - bundle install  
 
-script: 
-  - "./build.sh"
+script: rake travis
 
 addons:
   apt:

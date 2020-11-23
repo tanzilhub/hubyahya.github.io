@@ -44,8 +44,20 @@ require "tmpdir"
 require "bundler/setup"
 require "jekyll"
 
+SOURCE_BRANCH="website-migration"
+GH_REF="github.com/hubyahya/hubyahya.github.io"
+DIST_FOLDER="_site"
+
+# only proceed script when started not by pull request (PR)
+if [ $TRAVIS_PULL_REQUEST == "true" ]; then
+  echo "this is a PR, exiting"
+  exit 0
+fi
+
+# enable error reporting to the console
+set -e
+
 $use_bundle_exec = false
-$awestruct_cmd = nil
 $antora_config = "playbook.yml"
 task :default => :preview
 
@@ -67,7 +79,6 @@ task :push do
   system 'git push origin website-migration'
 end
 
-
 desc 'Generate the site and deploy to production branch using local dev environment'
 task :deploy => [:check, :push] do
   run_antora
@@ -79,18 +90,38 @@ task :travis => :check do
   # if this is a pull request, do a simple build of the site and stop
   if ENV['TRAVIS_PULL_REQUEST'].to_s.to_i > 0
     msg 'Building pull request using production profile...'
-    run_awestruct '-P production -g'
+    system "bundle exec jekyll build" or raise "Jekyll build failed"
     next
   end
 
   repo = %x(git config remote.origin.url).gsub(/^git:/, 'https:')
   deploy_branch = 'master'
   msg "Building '#{deploy_branch}' branch using production profile..."
-  system "git add ."
-  system "git commit -m 'deloy production'"
-  system "git remote set-url --push origin #{repo}"
-  system "git remote set-branches --add origin #{deploy_branch}"
-  system 'git fetch -q'
+
+  # clean
+  system rm -rf ../hubyahya.github.io.${deploy_branch}
+
+  # clone into target folder
+  git clone $repo ../hubyahya.github.io.${deploy_branch}
+
+  # go to target folder
+  cd ../hubyahya.github.io.${deploy_branch}
+
+  # go to target branch
+  git checkout $deploy_branch || git checkout --orphan $deploy_branch
+
+  # go back to original folder
+  cd ../hubyahya.github.io
+
+  # build site, stored in dist folder
+  bundle exec jekyll build --trace
+
+  # copy dist folder to target folder
+  cp -R ${DIST_FOLDER}/* ../hubyahya.github.io.${deploy_branch}
+
+  # go to target folder
+  cd ../hubyahya.github.io.${deploy_branch}
+
   system "git config user.name '#{ENV['GIT_NAME']}'"
   system "git config user.email '#{ENV['GIT_EMAIL']}'"
   system 'git config credential.helper "store --file=.git/credentials"'
@@ -100,9 +131,15 @@ task :travis => :check do
   File.open('.git/credentials', 'w') do |f|
     f.write("https://#{ENV['GH_TOKEN']}:x-oauth-basic@github.com")
   end
-  system "git branch #{deploy_branch} origin/#{deploy_branch}"
-  system "git status"
-  system "bundle exec jekyll build" or raise "Jekyll build failed"
+  # add files
+  system git add -A .
+
+  # commit files
+  system git commit -am "Build from ${SOURCE_BRANCH} branch | Deployed by TravisCI (Build #$TRAVIS_BUILD_NUMBER)"
+
+  # force push to github
+  system git push -f "https://${DEBEZIUM}@${GH_REF}" ${TARGET_BRANCH} > /dev/null 2>&1
+
   File.delete '.git/credentials'
 end
 
@@ -138,8 +175,6 @@ task :check => :init do
     if which('jekyl').nil?
       msg 'Could not find jekyl.', :warn
       msg 'Run `rake setup` to install from RubyGems.'
-      # Enable once the rubygem-awestruct RPM is available
-      #msg 'Run `sudo yum install rubygem-awestruct` to install via RPM. (Fedora >= 18)'
       exit 1
     else
       $use_bundle_exec = false
@@ -179,11 +214,6 @@ def run_antora()
   end
 end
 
-# Execute Jekyll
-# def run_jekyll()
-#   system "#{$use_bundle_exec ? 'bundle exec ' : ''}jekyll serve --host 0.0.0.0" or raise "Jekyll build failed"
-# end
-
 # Print a message to STDOUT
 def msg(text, level = :info)
   case level
@@ -193,38 +223,3 @@ def msg(text, level = :info)
     puts "\e[33m#{text}\e[0m"
   end
 end
-require "jekyll"
-require "tmpdir"
-
-GITHUB_REPONAME = "hubyahya/hubyahya.github.io"
-GITHUB_REMOTE = "https://#{ENV['GH_TOKEN']}@github.com/#{GITHUB_REPONAME}"
-
-desc "Generate blog files"
-task :generate do
-    Jekyll::Site.new(Jekyll.configuration({
-        "source"      => ".",
-        "destination" => "_site"
-    })).process
-end
-
-desc "Generate and publish blog to gh-pages"
-task :publish => [:generate] do
-    fail "Not on Travis" if "#{ENV['TRAVIS']}" != "true"
-
-    Dir.mktmpdir do |tmp|
-        cp_r "_site/.", tmp
-
-        Dir.chdir tmp
-
-        system "git init"
-        system "git config user.name 'hubyaya'"
-        system "git config user.email 'shamshad.alam2@gmail.com'"
-
-        system "git add ."
-        message = "Site updated at #{Time.now.utc}"
-        system "git commit -m #{message.inspect}"
-        system "git remote add origin #{GITHUB_REMOTE}"
-        system "git push --force origin master"
-    end
-end
-
