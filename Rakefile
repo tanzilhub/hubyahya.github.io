@@ -117,32 +117,22 @@ task :travis => :check do
   system "bundle exec jekyll build --trace"
 
   # copy dist folder to target folder
-  system "cp -R #{DIST_FOLDER}/* ../hubyahya.github.io.#{deploy_branch}"
+  system "cp -R #{$DIST_FOLDER}/* ../hubyahya.github.io.#{deploy_branch}"
 
   # go to target folder
   system "cd ../hubyahya.github.io.#{deploy_branch}"
 
   system "git config user.name '#{ENV['GIT_NAME']}'"
   system "git config user.email '#{ENV['GIT_EMAIL']}'"
-  system 'git config credential.helper "store --file=.git/credentials"'
-  
-  # CREDENTIALS assigned by a Travis CI Secure Environment Variable
-  # see http://awestruct.org/auto-deploy-to-github-pages/
-  # and http://about.travis-ci.org/docs/user/build-configuration/#Secure-environment-variables for details
-  File.open('.git/credentials', 'w') do |f|
-    f.write("https://#{ENV['GH_TOKEN']}:x-oauth-basic@github.com")
-  end
-  
+
   # add files
   system "git add -A ."
 
   # commit files
-  system "git commit -am 'Build from #{SOURCE_BRANCH} branch | Deployed by TravisCI (Build #{TRAVIS_BUILD_NUMBER})'"
+  system "git commit -am 'Build from #{$SOURCE_BRANCH} branch | Deployed by TravisCI (Build #{TRAVIS_BUILD_NUMBER})'"
 
   # force push to github
-  system "git push -f 'https://#{DEBEZIUM}@#{GH_REF}' #{TARGET_BRANCH} > /dev/null 2>&1"
-
-  File.delete '.git/credentials'
+  system "git push -f 'https://#{DEBEZIUM}@#{$GH_REF}' #{deploy_branch} > /dev/null 2>&1"
 end
 
 desc 'Clean out generated site and temporary files'
