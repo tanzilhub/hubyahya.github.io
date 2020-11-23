@@ -95,41 +95,9 @@ task :travis => :check do
   deploy_branch = 'master'
   msg "Building '#{deploy_branch}' branch using production profile..."
 
-  # clean
-  system "rm -rf ../hubyahya.github.io.#{deploy_branch}"
-
-  # clone into target folder
-  system "git clone #{repo} ../hubyahya.github.io.#{deploy_branch}"
-
-  # go to target folder
-  system "cd ../hubyahya.github.io.#{deploy_branch}"
-
-  # go to target branch
-  system "git checkout #{deploy_branch} || git checkout --orphan #{deploy_branch}"
-
-  # go back to original folder
-  system "cd ../hubyahya.github.io"
-
-  # build site, stored in dist folder
-  system "bundle exec jekyll build --trace"
-
-  # copy dist folder to target folder
-  system "cp -R #{$DIST_FOLDER}/* ../hubyahya.github.io.#{deploy_branch}"
-
-  # go to target folder
-  system "cd ../hubyahya.github.io.#{deploy_branch}"
-
   system "git config user.name '#{ENV['GIT_NAME']}'"
   system "git config user.email '#{ENV['GIT_EMAIL']}'"
 
-  # add files
-  system "git add -A ."
-
-  # commit files
-  system "git commit -am 'Build from #{$SOURCE_BRANCH} branch | Deployed by TravisCI (Build #{TRAVIS_BUILD_NUMBER})'"
-
-  # force push to github
-  system "git push -f 'https://#{DEBEZIUM}@#{$GH_REF}' #{deploy_branch} > /dev/null 2>&1"
 end
 
 desc 'Clean out generated site and temporary files'
