@@ -77,8 +77,8 @@ end
 
 desc 'Generate the site and deploy to production branch using local dev environment'
 task :build do
-  run_antora
   system "bundle exec jekyll build"
+  run_antora
 end
 
 task :documentation => :check do
