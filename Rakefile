@@ -40,8 +40,7 @@
 #
 # Now you're Jekyll with rake!
 require 'jekyll'
-$use_bundle_exec = false
-$awestruct_cmd = nil
+$use_bundle_exec = true
 $antora_config = "playbook.yml"
 task :default => :build
 
@@ -60,6 +59,7 @@ end
 desc 'Build and preview the site locally in development mode'
 task :preview do
   run_antora
+  system 'bundle install'
   system "#{$use_bundle_exec ? 'bundle exec ' : ''}jekyll serve --host 0.0.0.0" or raise "Jekyll build failed"
 end
 
@@ -103,8 +103,6 @@ def run_antora()
     exit -1
   end
 end
-
-
 # Print a message to STDOUT
 def msg(text, level = :info)
   case level
