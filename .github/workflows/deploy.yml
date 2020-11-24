@@ -23,6 +23,7 @@ jobs:
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-gems-
+          github_token: ${{ secrets.PUBLISH_GH_TOKEN}}
           publish_dir: ./_site
       - uses: helaili/jekyll-action@2.0.4
         env:
