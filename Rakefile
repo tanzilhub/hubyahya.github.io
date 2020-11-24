@@ -43,7 +43,7 @@ require 'jekyll'
 $use_bundle_exec = false
 $awestruct_cmd = nil
 $antora_config = "playbook.yml"
-task :default => :preview
+task :default => :build
 
 desc 'Setup the environment to run Awestruct'
 task :setup, [:env] => :init do |task, args|
@@ -65,7 +65,7 @@ task :update => :init do
 end
 
 desc 'Build and preview the site locally in development mode'
-task :preview => :check do
+task :preview do
   run_antora
   run_awestruct '-d'
 end
@@ -78,6 +78,8 @@ end
 desc 'Generate the site and deploy to production branch using local dev environment'
 task :build do
   # run_antora
+  system 'bundle install'
+  system 'bundle update'
   system 'bundle exec jekyll build'
 end
 
@@ -102,38 +104,9 @@ task :init do
   end
 end
 
-desc 'Check to ensure the environment is properly configured'
-task :check => :init do
-  if !File.exist? 'Gemfile'
-    if which('jekyll').nil?
-      msg 'Could not find jekyll.', :warn
-      msg 'Run `rake setup` or `rake setup[local]` to install from RubyGems.'
-      # Enable once the rubygem-awestruct RPM is available
-      exit 1
-    else
-      $use_bundle_exec = false
-      next
-    end
-  end
-
-  begin
-    require 'bundler'
-    Bundler.setup
-  rescue LoadError
-    $use_bundle_exec = true
-  rescue StandardError => e
-    msg e.message, :warn
-    if which('jekyll').nil?
-      msg 'Run `rake setup` to install required gems from RubyGems.'
-    else
-      msg 'Run `rake update` to install additional required gems from RubyGems.'
-    end
-    exit e.status_code
-  end
-end
 
 desc 'Configures Antora build process to use authoring mode, allowing changes to documentation files locally without needing to push changes to github'
-task :author => :check do
+task :author do
   $antora_config = "playbook_author.yml"
 end
 
