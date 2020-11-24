@@ -5,12 +5,17 @@ on:
     - cron: '0 0 * * *'
   push:
     branches:
-      - develop
+      - website-migration
 jobs:
-  deploy:
-    runs-on: ubuntu-20.04
+  build-deploy:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Build
+        run: docker run --rm --privileged=true --user=$UID:$UID -i -p 4242:4242 -e LC_ALL=C.UTF-8 -e TRAVIS_PULL_REQUEST=0 -e LANG=C.UTF-8 -v $(pwd):/site -v ~/github/debezium:/debezium debezium/website-builder rake clean documentation travis
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+
       # Use GitHub Actions' cache to shorten build times and decrease load on servers
       - uses: actions/cache@v1
         with:
@@ -18,7 +23,7 @@ jobs:
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-gems-
-
+          publish_dir: ./_site
       - uses: helaili/jekyll-action@2.0.4
         env:
           JEKYLL_PAT: ${{ secrets.PUBLISH_GH_TOKEN }}

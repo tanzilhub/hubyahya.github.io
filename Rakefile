@@ -71,34 +71,59 @@ task :preview => :check do
   system "#{$use_bundle_exec ? 'bundle exec ' : ''}jekyll serve --host 0.0.0.0" or raise "Jekyll build failed"
 end
 
-desc 'Push local commits to origin/website-migration'
-task :push do
-  system 'git push origin website-migration'
-end
-
-desc 'Generate the site and deploy to production branch using local dev environment'
-task :deploy => [:check, :push] do
+task :documentation => :check do
   run_antora
-  system "jekyll build" or raise "Jekyll build failed"
 end
 
-desc 'Generate site using Travis CI and, if not a pull request, publish site to production (GitHub Pages).  Antora content will be built by Travis directly rather than this task.'
-task :travis => :check do
-  # if this is a pull request, do a simple build of the site and stop
-  if ENV['TRAVIS_PULL_REQUEST'].to_s.to_i > 0
-    msg 'Building pull request using production profile...'
-    system "bundle exec jekyll build" or raise "Jekyll build failed"
-    next
-  end
+# desc 'Generate site using Travis CI and, if not a pull request, publish site to production (GitHub Pages).  Antora content will be built by Travis directly rather than this task.'
+# task :travis => :check do
+#   # if this is a pull request, do a simple build of the site and stop
+#   if ENV['TRAVIS_PULL_REQUEST'].to_s.to_i > 0
+#     msg 'Building pull request using production profile...'
+#     system "bundle exec jekyll build" or raise "Jekyll build failed"
+#     next
+#   end
 
-  repo = %x(git config remote.origin.url).gsub(/^git:/, 'https:')
-  deploy_branch = 'master'
-  msg "Building '#{deploy_branch}' branch using production profile..."
+#   repo = %x(git config remote.origin.url).gsub(/^git:/, 'https:')
+#   deploy_branch = 'master'
+#   msg "Building ''#{deploy_branch}'' branch using production profile..."
 
-  system "git config user.name '#{ENV['GIT_NAME']}'"
-  system "git config user.email '#{ENV['GIT_EMAIL']}'"
+#   # clean
+#   system "rm -rf ../hubyahya.github.io.'#{deploy_branch}'"
 
-end
+#   # clone into target folder
+#   system "git clone '#{repo}' ../hubyahya.github.io.'#{deploy_branch}'"
+
+#   # go to target folder
+#   system "cd ../hubyahya.github.io.'#{deploy_branch}'"
+
+#   # go to target branch
+#   system "git checkout '#{deploy_branch}' || git checkout --orphan '#{deploy_branch}'"
+
+#   # go back to original folder
+#   system "cd ../hubyahya.github.io"
+
+#   # build site, stored in dist folder
+#   system "bundle exec jekyll build --trace"
+
+#   # copy dist folder to target folder
+#   system "cp -R '#{$DIST_FOLDER}'/* ../hubyahya.github.io.'#{deploy_branch}'"
+
+#   # go to target folder
+#   system "cd ../hubyahya.github.io.'#{deploy_branch}'"
+
+#   system "git config user.name '#{ENV['GIT_NAME']}'"
+#   system "git config user.email '#{ENV['GIT_EMAIL']}'"
+
+#   # add files
+#   system "git add -A ."
+
+#   # commit files
+#   system "git commit -am 'Build from '#{$SOURCE_BRANCH}' branch | Deployed by TravisCI (Build '#{TRAVIS_BUILD_NUMBER}')'"
+
+#   # force push to github
+#   system "git push -f 'https://'#{DEBEZIUM}'@'#{$GH_REF}'' '#{deploy_branch}' > /dev/null 2>&1"
+# end
 
 desc 'Clean out generated site and temporary files'
 task :clean, :spec do |task, args|
