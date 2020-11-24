@@ -1,9 +1,9 @@
 # This file is a rake build file. The purpose of this file is to simplify
-# setting up and using Jekyll. It's not required to use Jekyll, though it
+# setting up and using Awestruct. It's not required to use Awestruct, though it
 # does save you time (hopefully). If you don't want to use rake, just ignore or
 # delete this file.
 #
-# If you're just getting started, execute this command to install Jekyll and
+# If you're just getting started, execute this command to install Awestruct and
 # the libraries on which it depends:
 #
 #  rake setup
@@ -18,11 +18,11 @@
 # which include a C compiler, the Ruby development libraries and some other
 # development libraries as well.
 #
-# There are also tasks for running Jekyll. The build will auto-detect
-# whether you are using Bundler and, if you are, wrap calls to Jekyll in
+# There are also tasks for running Awestruct. The build will auto-detect
+# whether you are using Bundler and, if you are, wrap calls to awestruct in
 # `bundle exec`.
 #
-# To run in Jekyll in development mode, execute:
+# To run in Awestruct in development mode, execute:
 #
 #  rake
 #
@@ -38,92 +38,52 @@
 #
 #  rake -T
 #
-# Now you're Jekyll with rake!
-require "rubygems"
-require "tmpdir"
-require "bundler/setup"
-require "jekyll"
-
-$SOURCE_BRANCH="website-migration"
-$GH_REF="github.com/hubyahya/hubyahya.github.io"
-$DIST_FOLDER="_site"
-
-# only proceed script when started not by pull request (PR)
-if [ $TRAVIS_PULL_REQUEST == "true" ]; then
-  echo "this is a PR, exiting"
-  exit 0
-fi
-
+# Now you're Awestruct with rake!
+require 'jekyll'
 $use_bundle_exec = false
+$awestruct_cmd = nil
 $antora_config = "playbook.yml"
 task :default => :preview
 
+desc 'Setup the environment to run Awestruct'
+task :setup, [:env] => :init do |task, args|
+  next if !which('awestruct').nil?
 
-desc 'Update the environment to run Jekyll'
+  require 'fileutils'
+  FileUtils.remove_dir '.bundle', true
+  system 'bundle install --binstubs=_bin --path=.bundle'
+  msg 'Run awestruct using `awestruct` or `rake`'
+  # Don't execute any more tasks, need to reset env
+  exit 0
+end
+
+desc 'Update the environment to run Awestruct'
 task :update => :init do
   system 'bundle update'
+  # Don't execute any more tasks, need to reset env
   exit 0
 end
 
 desc 'Build and preview the site locally in development mode'
 task :preview => :check do
   run_antora
-  system "#{$use_bundle_exec ? 'bundle exec ' : ''}jekyll serve --host 0.0.0.0" or raise "Jekyll build failed"
+  run_awestruct '-d'
+end
+
+desc 'Push local commits to upstream/develop'
+task :push do
+  system 'git push upstream develop'
+end
+
+desc 'Generate the site and deploy to production branch using local dev environment'
+task :deploy => [:check, :push] do
+  run_antora
+  run_awestruct '-P production -g --force --deploy'
 end
 
 task :documentation => :check do
   run_antora
 end
-
-# desc 'Generate site using Travis CI and, if not a pull request, publish site to production (GitHub Pages).  Antora content will be built by Travis directly rather than this task.'
-# task :travis => :check do
-#   # if this is a pull request, do a simple build of the site and stop
-#   if ENV['TRAVIS_PULL_REQUEST'].to_s.to_i > 0
-#     msg 'Building pull request using production profile...'
-#     system "bundle exec jekyll build" or raise "Jekyll build failed"
-#     next
-#   end
-
-#   repo = %x(git config remote.origin.url).gsub(/^git:/, 'https:')
-#   deploy_branch = 'master'
-#   msg "Building ''#{deploy_branch}'' branch using production profile..."
-
-#   # clean
-#   system "rm -rf ../hubyahya.github.io.'#{deploy_branch}'"
-
-#   # clone into target folder
-#   system "git clone '#{repo}' ../hubyahya.github.io.'#{deploy_branch}'"
-
-#   # go to target folder
-#   system "cd ../hubyahya.github.io.'#{deploy_branch}'"
-
-#   # go to target branch
-#   system "git checkout '#{deploy_branch}' || git checkout --orphan '#{deploy_branch}'"
-
-#   # go back to original folder
-#   system "cd ../hubyahya.github.io"
-
-#   # build site, stored in dist folder
-#   system "bundle exec jekyll build --trace"
-
-#   # copy dist folder to target folder
-#   system "cp -R '#{$DIST_FOLDER}'/* ../hubyahya.github.io.'#{deploy_branch}'"
-
-#   # go to target folder
-#   system "cd ../hubyahya.github.io.'#{deploy_branch}'"
-
-#   system "git config user.name '#{ENV['GIT_NAME']}'"
-#   system "git config user.email '#{ENV['GIT_EMAIL']}'"
-
-#   # add files
-#   system "git add -A ."
-
-#   # commit files
-#   system "git commit -am 'Build from '#{$SOURCE_BRANCH}' branch | Deployed by TravisCI (Build '#{TRAVIS_BUILD_NUMBER}')'"
-
-#   # force push to github
-#   system "git push -f 'https://'#{DEBEZIUM}'@'#{$GH_REF}'' '#{deploy_branch}' > /dev/null 2>&1"
-# end
 
 desc 'Clean out generated site and temporary files'
 task :clean, :spec do |task, args|
@@ -135,11 +95,6 @@ task :clean, :spec do |task, args|
   dirs.each do |dir|
     FileUtils.remove_dir dir unless !File.directory? dir
   end
-end
-
-desc 'Configures Antora build process to use authoring mode, allowing changes to documentation files locally without needing to push changes to github'
-task :author => :check do
-  $antora_config = "playbook_author.yml"
 end
 
 # Perform initialization steps, such as setting up the PATH
@@ -154,9 +109,10 @@ end
 desc 'Check to ensure the environment is properly configured'
 task :check => :init do
   if !File.exist? 'Gemfile'
-    if which('jekyl').nil?
-      msg 'Could not find jekyl.', :warn
-      msg 'Run `rake setup` to install from RubyGems.'
+    if which('jekyll').nil?
+      msg 'Could not find jekyll.', :warn
+      msg 'Run `rake setup` or `rake setup[local]` to install from RubyGems.'
+      # Enable once the rubygem-awestruct RPM is available
       exit 1
     else
       $use_bundle_exec = false
@@ -171,7 +127,7 @@ task :check => :init do
     $use_bundle_exec = true
   rescue StandardError => e
     msg e.message, :warn
-    if which('jekyl').nil?
+    if which('jekyll').nil?
       msg 'Run `rake setup` to install required gems from RubyGems.'
     else
       msg 'Run `rake update` to install additional required gems from RubyGems.'
@@ -194,6 +150,18 @@ def run_antora()
     puts "Antora failed"
     exit -1
   end
+end
+
+# Execute Awestruct
+def run_awestruct(args)
+  # used to bind Awestruct to 0.0.0.0
+  # do export BIND="-b 0.0.0.0"
+  if ENV['BIND'] && ENV['BIND'] != ''
+    augmented_args = "#{ENV['BIND']} #{args}"
+  else
+    augmented_args = "#{args}"
+  end
+  system "#{$use_bundle_exec ? 'bundle exec ' : ''}jekyll serve --host 0.0.0.0" or raise "Jekyll build failed"
 end
 
 # Print a message to STDOUT
