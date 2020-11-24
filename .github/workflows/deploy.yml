@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build
-        run: docker run --rm --privileged=true --user=$UID:$UID -i -p 4242:4242 -e LC_ALL=C.UTF-8 -e TRAVIS_PULL_REQUEST=0 -e LANG=C.UTF-8 -v $(pwd):/site -v ~/github/debezium:/debezium debezium/website-builder rake clean documentation travis
+        run: docker run --rm --privileged=true --user=$UID:$UID -i -p 4000:4000 -e LC_ALL=C.UTF-8 -e TRAVIS_PULL_REQUEST=0 -e LANG=C.UTF-8 -v $(pwd):/site -v ~/github/debezium:/debezium debezium/website-builder bash
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
 
