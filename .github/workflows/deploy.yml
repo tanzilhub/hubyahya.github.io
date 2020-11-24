@@ -8,17 +8,21 @@ on:
       - website-migration
 jobs:
   build-deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-16.04
     steps:
       - uses: actions/checkout@v2
       - name: Build
         run: docker run --privileged -i --rm -p 4000:4000 -e LC_ALL=C.UTF-8 -e LANG=C.UTF-8 -v $(pwd):/site debezium/website-builder rake clean build
-      - name: Deploy
+      - uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
 
-      # Use GitHub Actions' cache to shorten build times and decrease load on servers
+      - name: Deploy
       - uses: helaili/jekyll-action@2.0.4
         env:
           JEKYLL_PAT: ${{ secrets.PUBLISH_GH_TOKEN }}
         with:
-          jekyll_src: 'website-migration'
           target_branch: 'master'
