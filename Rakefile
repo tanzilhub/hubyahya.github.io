@@ -43,6 +43,7 @@ require 'jekyll'
 $use_bundle_exec = true
 $antora_config = "playbook.yml"
 task :default => :build
+ENV["JEKYLL_ENV"] = "production"
 
 desc 'Install the environment to run Jekyll'
 task :install do
@@ -72,7 +73,7 @@ desc 'Generate the site and deploy to production branch using local dev environm
 task :build do
   run_antora
   system 'bundle install'
-  system 'bundle exec jekyll build'
+  system "'#{ENV["JEKYLL_ENV"] = "production"}' bundle exec jekyll build"
 end
 
 desc 'Clean out generated site and temporary files'

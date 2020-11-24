@@ -1,76 +1,112 @@
-# Upstream Community Theme
+[![Build Status](https://travis-ci.org/debezium/debezium.github.io.svg?branch=develop)](https://travis-ci.org/debezium/debezium.github.io)
+[![License](http://img.shields.io/:license-apache%202.0-brightgreen.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
+[![Developer chat](https://img.shields.io/badge/chat-devs-brightgreen.svg)](https://gitter.im/debezium/dev)
+[![Google Group](https://img.shields.io/:mailing%20list-debezium-brightgreen.svg)](https://groups.google.com/forum/#!forum/debezium)
 
-The Upstream Community Theme is a ready-to-use [Jekyll](https://jekyllrb.com/) theme to help you create a basic static site for your project. It was designed with the Red Hat Upstream Community in mind, but can be used by anyone looking to create a simple, lightweight site.
+# Introduction
 
-## Getting Started
+This is the source code for the [Debezium website](https://debezium.io/). This is based on [templates](https://github.com/rhmwes/community-theme) created by the Red Hat Upstream Community using [Jekyll](https://jekyllrb.com/).
 
-These instructions will get you a copy of the project up and running on your local machine for development purposes. See deployment for notes on how to deploy the project on [GitHub Pages](https://pages.github.com/).
+For publishing the Debezium reference documentation, the [Antora](https://antora.org/) tool is used,
+which produces the documentation based on [AsciiDoc files](https://github.com/debezium/debezium/tree/master/documentation) in different branches of the Debezium main code repository.
+The rendered HTML pages are added as-is to the website generated with Jekyll.
+Please see [ANTORA.md](./ANTORA.md) to learn more.
 
-### Prerequisites
+# License
 
- - Install a full [Ruby development environment](https://www.ruby-lang.org/en/downloads/). Ruby version 2.4.0 or above is required, including all development headers. You can run `ruby -v` to check your current Ruby version.
- - [RubyGems](https://rubygems.org/pages/download). You can run `gem -v` to check if you have RubyGems installed.
- - [GCC](https://gcc.gnu.org/install/) and [Make](https://www.gnu.org/software/make/). You can run `gcc -v`,`g++ -v` and `make -v` to see if your system already has them installed.
+Contents of this repository are available as open source software under [Apache License Version 2.0](./LICENSE.txt).
 
-### Installing the theme
+# System Requirements
 
-*[Jekyll documentation pages](https://jekyllrb.com/docs/)*
+We use [Docker](http://docker.com) to build the site. Be sure you have a recent version of the [Docker Engine](http://docs.docker.com/engine/installation/) or [Docker Machine](http://docs.docker.com/toolbox).
 
-1. The Jekyll site provides detailed installation instructions for each operating system:
- 
-  - [Mac](https://jekyllrb.com/docs/installation/macos/)
-  - [Linux distributions including Red Hat Linux](https://jekyllrb.com/docs/installation/other-linux)
-  - [Ubuntu Linux](https://jekyllrb.com/docs/installation/ubuntu/)
-  - [Windows](https://jekyllrb.com/docs/installation/windows/)
-    
-3. Fork this repository by clicking the _Fork_ button at the top right corner of this page.
-4. Clone your fork (please ensure you have current version of git installed) by running: 
-  `git clone git@github.com:YOUR_USER_NAME/community-theme.git`
-5. Change into the project directory
-  `cd community-theme`
-6. Build the site and make it available on a local server
-  `rake clean preview`
-7. To preview your site, browse to http://localhost:4000
+# Getting Started
 
-> If you encounter any unexpected errors during the above, please refer to the [troubleshooting](https://jekyllrb.com/docs/troubleshooting/#configuration-problems) page or the [requirements](https://jekyllrb.com/docs/installation/#requirements) page, as you might be missing development headers or other prerequisites.
+### 1. Get the site source code
 
-_For more information regarding the use of Jekyll, please refer to the [Jekyll Step by Step Tutorial](https://jekyllrb.com/docs/step-by-step/01-setup/)._
+Use Git to clone the Debezium website Git repository and change into that directory:
+
+    $ git clone https://github.com/debezium/debezium.github.io.git
+    $ cd debezium.github.io
+
+If you plan to submit changes, fork the [Git repository](http://github.com/debezium/debezium.github.io) on GitHub and then add your fork as a remote:
+
+    $ git remote rename origin upstream
+    $ git remote add origin https://github.com/<you>/debezium.github.io.git
+
+Then check out the `develop` branch and get the latest. If you're going to make changes, create a topic branch and make the changes there.
 
 ### 2. Start the development webserver
 
+There are two recommended ways for previewing the website locally, either via the container environment that's also used on CI for publishing the website, or via a Jekyll install on your machine.
+The latter is a bit quicker, but requires Ruby/Jekyll to be set up correctly, whereas you get this "for free" via the container image.
+
+#### 2.1 Using the container image
+
 In a new terminal initialized with the Docker host environment, start a Docker container that has the build environment for our website:
 
-    $ docker run -it --rm -p 4242:4242 -e LC_ALL=C.UTF-8 -e LANG=C.UTF-8 -v $(pwd):/site uidoyen/newjekyll:latest bash
+    $ docker run --privileged -it --rm -p 4000:4000 -e LC_ALL=C.UTF-8 -e LANG=C.UTF-8 -v $(pwd):/site debezium/website-builder bash
 
-This command tells Docker to start a container using the `uidoyen/jekyll` image (downloading it if necessary) with an interactive terminal (via `-it` flag) to the container so that you will see the output of the process running in the container. The `--rm` flag will remove the container when it stops, while the `-p 4242` flag maps the container's 4242 port to the same port on the Docker host (which is the local machine on Linux or the virtual machine if running Boot2Docker or Docker Machine on OS X and Windows). The `-v $(pwd):/site` option mounts your current working directory (where the website's code is located) into the `/site` directory within the container.
+This command tells Docker to start a container using the `debezium/website-builder` image (downloading it if necessary) with an interactive terminal (via `-it` flag) to the container so that you will see the output of the process running in the container. The `--rm` flag will remove the container when it stops, while the `-p 4000` flag maps the container's 4000 port to the same port on the Docker host (which is the local machine on Linux or the virtual machine if running Boot2Docker or Docker Machine on OS X and Windows). The `-v $(pwd):/site` option mounts your current working directory (where the website's code is located) into the `/site` directory within the container.
 
+Next, in the shell in the container, run the following commands to update and then (re)install all of the Ruby libraries required by the website:
 
-## Deployment on GitHub Pages
+    jekyll@49d06009e1fa:/site$ bundle update
+    jekyll@49d06009e1fa:/site$ bundle install
 
-To deploy your site using GitHub Pages you will need to add the [github-pages gem](https://github.com/github/pages-gem).
+This should only need to be performed once. After the libraries are installed, we can then build the site from the code so you can preview it in a browser:
 
-> Note that GitHub Pages runs in `safe` mode and only allows a set of [whitelisted plugins](https://help.github.com/articles/configuring-jekyll-plugins/#default-plugins).
+    jekyll@49d06009e1fa:/site$ rake clean preview
+    
+With the integration with Antora, the above command will now also fetch the main codebase repository and will invoke the Antora build process to build the version-specific documentation prior to invoking Jekyll.  For information on Antora and how we've integrated it into the build process, please see ANTORA.md.
 
-To use the github-pages gem, you'll need to add the following on your `Gemfile`:
+##### 2.2 Using a local Ruby and Jekyll installation
 
-```
-source "https://rubygems.org"
-gem "github-pages", group: :jekyll_plugins
-```
-And then run `bundle update`.
+Run the following steps once to set up your local Jekyll installation.
 
-To deploy a project page that is kept in the same repository as the project they are for, please refer to the *Project Pages* section in [Deploying Jekyll to GitHub Pages](https://jekyllrb.com/docs/github-pages/#deploying-jekyll-to-github-pages).
+* Install [RVM](https://rvm.io/), the Ruby version manager
+(see [here](http://bootstrap.me.uk/2016/10/07/ruby-rvm-gemsets-and-bundler.html) why to use RVM _and_ Bundler).
+* Install Ruby:
 
+        rvm install ruby-2.7.2
 
-## Contributing
+* Create a _gemset_ for all the dependencies to be installed:
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on the process for submitting pull requests to us.
+        rvm ruby-2.7.2 do rvm gemset create debezium.io
 
-## Authors
+* Create a file named _.rvmrc_ in this directory (_debezium.github.io_) with the following contents:
 
-* [**Adela Sofia A.**](https://github.com/adelasofia) - *Initial theme implementation*
-* [**Jason Brock**](https://github.com/jkbrock) - *Visual Designer*
+        rvm use 2.7.2@debezium.io
 
-## License
+* Change out of this directory and back in again, it should display a message like this:
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+        cd .. && cd debezium.github.io
+        Using /Users/gunnar/.rvm/gems/ruby-2.7.2 with gemset debezium.io
+
+* Install all dependencies
+
+        bundle update
+        bundle install
+
+With this set-up in place, you can preview the website by running Jekyll like so:
+
+    bundle exec jekyll serve --livereload --incremental
+
+### 3. View the site
+
+Point your browser to [http://localhost:4000](http://localhost:4000) to view the site. You may notice some delay during development, since the site is generated somewhat lazily.
+
+### 4. Edit the site
+
+Use any development tools on your local machine to edit the source files for the site.
+Jekyll will detect the changes and may regenerate the corresponding static file(s).
+
+If you have to change the Gemfile to use different libraries, you will need to let the container download the new versions. The simplest way to do this is to stop the container (using CTRL-C), use `rm -rf bundler` to remove the directory where the gem files are stored, and then restart the container. This ensures that you're always using the exact files that are specified in the Gemfile.lock file.
+
+### 5. Commit changes
+
+Use Git on your local machine to commit the changes to the site's codebase to your topic branch, and then create a pull request.
+
+### 6. Publish the website
+
+Review the pull request and merge onto the `develop` branch. The [Travis-CI build](https://travis-ci.org/debezium/debezium.github.io) will then build the `develop` branch and, if successful, store the generated site in the `master` branch and publish to the GitHub Pages.

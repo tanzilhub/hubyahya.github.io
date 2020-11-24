@@ -16,12 +16,15 @@
 title: Debezium
 email: ""
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new project site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  Debezium is an open source distributed platform for change data capture.
+  Start it up, point it at your databases, and your apps can start responding
+  to all of the inserts, updates, and deletes that other apps commit to your
+  databases. Debezium is durable and fast, so your apps can respond quickly
+  and never miss an event, even when things go wrong.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-
+# Google Analytics
+google_analytics: UA-76464546-1
 twitter_username: debezium ‏
 github_username:  debezium
 github_fork_url: "https://github.com/debezium/debezium.github.io"
@@ -33,6 +36,7 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-paginate-v2
+  - jekyll-archives  
 
 sass:
   style: compressed
@@ -104,6 +108,9 @@ disqus:
   # Disable comments for any post by adding `comments: false` to that post's YAML Front Matter.
   shortname: Debezium
 
+feed:
+  posts_limit: 20
+  
 # Integrations
 integrations:
   - id: java

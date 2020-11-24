@@ -3,8 +3,9 @@
   {% assign formatedVersion = version | replace: ".", "" %} 
   {% assign releaseDetails = site.data.releases[formatedVersion] %} 
   {% if releaseDetails.series.displayed %}
-    {% assign lastVersion = releaseDetails.versions.versions.last %}
-    {% assign formattedLastVersion = lastVersion | replace: ".", "" %}
+  {%- assign sortedReleaseDetails = releaseDetails | sort -%}
+  {%- assign lastIndex = sortedReleaseDetails.size | minus: 2 -%}
+  {% assign formattedLastVersion = sortedReleaseDetails[lastIndex][0] %}
     {% assign latestRelease = releaseDetails[formattedLastVersion] %}
       {% if latestRelease.stable %}
         {% assign latestStableVersion = version %}
@@ -12,9 +13,9 @@
         {% assign developmentVersion = version %}
       {% endif %}
   {% endif %} 
-{% endfor %}
+{% endfor%}
 <div class="jumbotron">
-  <div class="hidden-sm hidden-xs">
+  <div class="row hidden-sm hidden-xs">
     <div class="col-md-8">
       <div class="row">
         <div class="col">
@@ -60,7 +61,7 @@
       </div>
     </div>
   </div>
-  <div class="hidden-sm hidden-xs">
+  <div class="row hidden-sm hidden-xs">
     <div class="col">
       <p>
         Debezium is an open source distributed platform for change data capture.
