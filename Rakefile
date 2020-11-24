@@ -76,9 +76,9 @@ task :push do
 end
 
 desc 'Generate the site and deploy to production branch using local dev environment'
-task :deploy => [:check, :push] do
+task :build do
   run_antora
-  run_awestruct '-P production -g --force --deploy'
+  JEKYLL_ENV=production bundle exec jekyll build
 end
 
 task :documentation => :check do
