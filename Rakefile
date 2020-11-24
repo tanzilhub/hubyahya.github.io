@@ -73,7 +73,7 @@ desc 'Generate the site and deploy to production branch using local dev environm
 task :build do
   run_antora
   system 'bundle install'
-  system "'#{ENV["JEKYLL_ENV"] = "production"}' bundle exec jekyll build"
+  system 'JEKYLL_ENV=production bundle exec jekyll build'
 end
 
 desc 'Clean out generated site and temporary files'
