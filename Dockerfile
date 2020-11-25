@@ -37,8 +37,7 @@ RUN gem install jekyll
 COPY Gemfile* /tmp/
 WORKDIR /tmp
 
-RUN bundle install
-RUN bundle update
+RUN bundle install --path vendor/bundle
  
 WORKDIR $SITE_HOME
 VOLUME [ $SITE_HOME ]
