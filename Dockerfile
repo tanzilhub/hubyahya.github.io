@@ -33,6 +33,12 @@ RUN gem install rdoc -v 6.2.0
 RUN gem install rake bundler
 RUN gem install bundler
 RUN gem install jekyll
+
+COPY Gemfile* /tmp/
+WORKDIR /tmp
+
+RUN bundle install
+RUN bundle update
  
 WORKDIR $SITE_HOME
 VOLUME [ $SITE_HOME ]
