@@ -5,7 +5,7 @@ on:
     - cron: '0 0 * * *'
   push:
     branches:
-      - develop
+      - website-migration
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
@@ -20,4 +20,3 @@ jobs:
           github_token: ${{ secrets.PUBLISH_GH_TOKEN}}
           publish_dir: ./_site
           publish_branch: master
-          cname: debezium.io
