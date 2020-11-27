@@ -4,7 +4,6 @@ LABEL maintainer="Debezium Community"
  
 ENV SITE_HOME=/site \
     CACHE_HOME=/cache \
-    HOME=/home/awestruct \
     NODE_PATH=/usr/local/share/.config/yarn/global/node_modules
 
 # Install Node.js - Required by Antora
@@ -34,19 +33,16 @@ RUN gem install rake bundler
 RUN gem install bundler
 RUN gem install jekyll
 
-COPY Gemfile* /tmp/
-WORKDIR /tmp
+#Copy over the gemfile to a temporary directory and run the install command. 
+ONBUILD WORKDIR /tmp
+ONBUILD ADD Gemfile Gemfile
+ONBUILD ADD Gemfile.lock Gemfile.lock 
+ONBUILD RUN bundle install 
 
-RUN bundle install --path vendor/bundle
- 
 WORKDIR $SITE_HOME
 VOLUME [ $SITE_HOME ]
  
 EXPOSE 4000
- 
-# Install the entry point that will be called by default ...
-COPY ./docker-entrypoint.sh /
-ENTRYPOINT ["/docker-entrypoint.sh"]
  
 # And execute 'run' by default ...
 CMD ["run"]

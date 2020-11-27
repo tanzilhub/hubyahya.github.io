@@ -30,10 +30,6 @@
 #
 #  rake clean preview
 #
-# To deploy using the production profile, execute:
-#
-#  rake deploy
-#
 # To get a list of all tasks, execute:
 #
 #  rake -T
@@ -43,7 +39,6 @@ require 'jekyll'
 $use_bundle_exec = true
 $antora_config = "playbook.yml"
 task :default => :build
-ENV["JEKYLL_ENV"] = "production"
 
 desc 'Install the environment to run Jekyll'
 task :install do
@@ -61,17 +56,13 @@ desc 'Build and preview the site locally in development mode'
 task :preview do
   run_antora
   system 'bundle install'
-  system "#{$use_bundle_exec ? 'bundle exec ' : ''}jekyll serve --host 0.0.0.0" or raise "Jekyll build failed"
-end
-
-desc 'Push local commits to origin/develop'
-task :push do
-  system 'git push origin develop'
+  system "#{$use_bundle_exec ? 'bundle exec ' : ''}jekyll serve --host 0.0.0.0 --livereload" or raise "Jekyll build failed"
 end
 
 desc 'Build the site for production'
 task :build do
   run_antora
+  system 'bundle install'
   system 'JEKYLL_ENV=production bundle exec jekyll build'
 end
 

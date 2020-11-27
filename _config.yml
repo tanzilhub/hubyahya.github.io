@@ -21,8 +21,9 @@ description: >- # this means to ignore newlines until "baseurl:"
   to all of the inserts, updates, and deletes that other apps commit to your
   databases. Debezium is durable and fast, so your apps can respond quickly
   and never miss an event, even when things go wrong.
+
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://debezium.io" # the base hostname & protocol for your site, e.g. http://example.com
 # Google Analytics
 google_analytics: UA-76464546-1
 twitter_username: debezium ‏
@@ -36,18 +37,8 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-paginate-v2
-  - jekyll-archives  
-
-sass:
-  style: compressed
-
-# Pages permalink
-defaults:
-  -
-    scope:
-      type: "posts"
-    values:
-      permalink: /blog/:year/:month/:day/:title/
+  - jekyll-archives
+  - jekyll-minifier 
 
 # Excerpt separator
 excerpt_separator: "+++<!-- more -->+++"
@@ -63,6 +54,13 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
+  - ANTORA.md
+  - CONTRIBUTING.md
+  - LICENSE.txt
+  - playbook.yml
+  - playbook_author.yml
+  - README.md
+  - Rakefile
   
 keep_files: [documentation] 
 
@@ -70,10 +68,10 @@ keep_files: [documentation]
 collections:
   pages:
     output: true
-    permalink: /:name  
+    permalink: /:name
   posts: 
     output: true
-    permalink: /blog/:year/:month:/:day/:title/
+    permalink: /blog/:year/:month:/:day/:title
 
 ############################################################
 # Site configuration for the Jekyll 3 Pagination Gem
