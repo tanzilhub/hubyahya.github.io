@@ -62,7 +62,6 @@ end
 desc 'Build the site for production'
 task :build do
   run_antora
-  system 'bundle install'
   system 'JEKYLL_ENV=production bundle exec jekyll build'
 end
 

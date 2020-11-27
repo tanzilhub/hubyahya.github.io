@@ -34,10 +34,10 @@ RUN gem install bundler
 RUN gem install jekyll
 
 #Copy over the gemfile to a temporary directory and run the install command. 
-ONBUILD WORKDIR /tmp
-ONBUILD ADD Gemfile Gemfile
-ONBUILD ADD Gemfile.lock Gemfile.lock 
-ONBUILD RUN bundle install 
+WORKDIR /tmp
+ADD Gemfile Gemfile
+ADD Gemfile.lock Gemfile.lock 
+RUN bundle install 
 
 WORKDIR $SITE_HOME
 VOLUME [ $SITE_HOME ]
