@@ -40,6 +40,14 @@ plugins:
   - jekyll-archives
   - jekyll-minifier 
 
+# Pages permalink
+defaults:
+  -
+    scope:
+      type: "posts"
+    values:
+      permalink: /blog/:year/:month/:day/:title/
+
 # Excerpt separator
 excerpt_separator: "+++<!-- more -->+++"
 
@@ -68,10 +76,10 @@ keep_files: [documentation]
 collections:
   pages:
     output: true
-    permalink: /:name
+    permalink: /:name  
   posts: 
     output: true
-    permalink: /blog/:year/:month:/:day/:title
+    permalink: /blog/:year/:month:/:day/:title/
 
 ############################################################
 # Site configuration for the Jekyll 3 Pagination Gem
