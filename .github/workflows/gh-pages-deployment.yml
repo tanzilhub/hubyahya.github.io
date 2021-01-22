@@ -4,16 +4,15 @@ on:
   push:
     branches:
       - develop
-jobs:
-  deploy:
+
+jobs: 
+  build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.PUBLISH_GH_TOKEN }}
-          publish_dir: ./_site
-          allow_empty_commit: true
-          enable_jekyll: true
-          publish_branch: master
+      - uses: actions/checkout@v1
+      - name: Build & Deploy to GitHub Pages
+        env: 
+          GITHUB_TOKEN: ${{ secrets.PUBLISH_GH_TOKEN }}
+          GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
+          GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
+        uses: BryanSchuetz/jekyll-deploy-gh-pages@master          
