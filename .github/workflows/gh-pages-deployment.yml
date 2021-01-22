@@ -13,8 +13,8 @@ jobs:
 
     - name: 🎩 Install Jekyll
       run: |
-        gem install bundler jekyll
-        bundle install    
+        sudo gem install bundler jekyll
+        sudo bundle install    
 
     # Use GitHub Actions' cache to shorten build times and decrease load on servers
     - uses: actions/cache@v2
