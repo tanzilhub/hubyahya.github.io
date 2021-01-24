@@ -38,7 +38,6 @@ plugins:
   - jekyll-feed
   - jekyll-paginate-v2
   - jekyll-archives
-  - jekyll-minifier 
 
 # Pages permalink
 defaults:
