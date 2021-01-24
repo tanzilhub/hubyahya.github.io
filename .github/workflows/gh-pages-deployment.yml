@@ -11,6 +11,9 @@ jobs:
 
     # Use GitHub Actions' cache to shorten build times and decrease load on servers
     - uses: actions/cache@v2
+    - name: Build
+      run: docker run --privileged -i --rm -p 4000:4000 -e LC_ALL=C.UTF-8 -e LANG=C.UTF-8 -v $(pwd):/site debezium/website-builder bash -c rake clean build
+
       with:
         path: vendor/bundle
         key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile') }}
@@ -18,7 +21,8 @@ jobs:
           ${{ runner.os }}-gems-
 
     # Specify the target branch (optional)
-    - uses: helaili/jekyll-action@v2
+    - uses: peaceiris/actions-gh-pages@v3
       with:
-        token: ${{ secrets.PUBLISH_GH_TOKEN }}
-        target_branch: 'master'
+        github_token: ${{ secrets.PUBLISH_GH_TOKEN}}
+        publish_dir: ./_site
+        publish_branch: master
