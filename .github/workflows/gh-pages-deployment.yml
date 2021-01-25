@@ -1,25 +1,16 @@
-name: Testing the GitHub Pages publication
+name: Build and deploy to GitHub Pages
 
 on:
-  push
-
+  push:
+    branches:
+      - develop
 jobs:
-  jekyll:
-    runs-on: ubuntu-16.04
+  build-deploy:
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-
-    # Use GitHub Actions' cache to shorten build times and decrease load on servers
-    - uses: actions/cache@v2
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile') }}
-        restore-keys: |
-          ${{ runner.os }}-gems-
-
-    # Specify the target branch (optional)
-    - uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.PUBLISH_GH_TOKEN}}
-        publish_dir: ./_site
-        publish_branch: master
+      # Use GitHub Actions' cache to shorten build times and decrease load on servers
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.PUBLISH_GH_TOKEN}}
+          publish_dir: ./_site
+          publish_branch: master    
