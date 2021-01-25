@@ -64,8 +64,6 @@ task :build, [:environment] do |task, args|
   args.with_defaults(:environment => 'development')
 
   run_antora
-  # system 'bundle install'
-  # system "JEKYLL_ENV=#{args[:environment]} bundle exec jekyll build"
 end
 
 desc 'Clean out generated site and temporary files'
