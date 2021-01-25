@@ -16,6 +16,10 @@ jobs:
         key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile') }}
         restore-keys: |
           ${{ runner.os }}-gems-
+    
+    - uses: actions/checkout@v2
+    - name: Build
+      run: docker run --privileged -i --rm -p 4000:4000 -e LC_ALL=C.UTF-8 -e LANG=C.UTF-8 -v $(pwd):/site debezium/website-builder bash -c rake build
 
     # Specify the target branch (optional)
     - uses: peaceiris/actions-gh-pages@v3
@@ -23,7 +27,3 @@ jobs:
         github_token: ${{ secrets.PUBLISH_GH_TOKEN}}
         publish_dir: ./_site
         publish_branch: master
-
-    - name: Build
-      run: docker run --privileged -i --rm -p 4000:4000 -e LC_ALL=C.UTF-8 -e LANG=C.UTF-8 -v $(pwd):/site debezium/website-builder bash -c rake build
-    
