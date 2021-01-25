@@ -63,7 +63,7 @@ desc 'Build the site for the given environment: development (the default), stagi
 task :build, [:environment] do |task, args|
   args.with_defaults(:environment => 'development')
 
-  run_antora
+  # run_antora
   # system 'bundle install'
   # system "JEKYLL_ENV=#{args[:environment]} bundle exec jekyll build"
 end
