@@ -1,33 +1,43 @@
 <h3 class="section">Series</h3>
 <div class="row">
-  {% for version in site.data.versions.versions %}
-   {% assign formatedVersion = version | replace: ".", "" %} 
-   {% assign releaseDetails = site.data.releases[formatedVersion] %} 
-   {% if releaseDetails.series.displayed %}
-   {%- assign sortedReleaseDetails = releaseDetails | sort -%}
+  {% assign versionOrder = site.data.versions.versions | reverse %} 
+  {% for version in versionOrder %}
+  {% assign formatedVersion = version | replace: ".", "" %} 
+  {% assign releaseDetails = site.data.releases[formatedVersion] %} 
+    {% if releaseDetails.series.displayed %}
+    {%- assign sortedReleaseDetails = releaseDetails | sort -%}
     {%- assign lastIndex = sortedReleaseDetails.size | minus: 2 -%}
     {% assign formattedLastVersion = sortedReleaseDetails[lastIndex][0] %}
-
-    
-    {% assign latestRelease = releaseDetails[formattedLastVersion] %}
-    {% if latestRelease.stable %}
-      {% assign labelStyle = "span label label-stable" %}
-      {% assign labelText = "stable" %}
-    {% else %}
-      {% assign labelStyle = "span label label-development" %}
-      {% assign labelText = "development" %}
-    {% endif %}
+      {% assign latestRelease = releaseDetails[formattedLastVersion] %}
+      {% if lastStableRelease %}
+        {% if latestRelease.stable %}
+          {% assign labelStyle1 = "label label-stable" %}
+          {% assign labelText1 = "stable" %}
+        {% else %}
+          {% assign labelStyle1 = "label label-development" %}
+          {% assign labelText1 = "development" %}
+        {% endif %}
+      {% else %}
+        {% if latestRelease.stable %}
+          {% assign lastStableRelease = releaseDetails[formattedLastVersion] %}
+          {% assign labelStyle1 = "label label-stable" %}
+          {% assign labelText1 = "latest stable" %}
+        {% else %}
+          {% assign labelStyle1 = "label label-development" %}
+          {% assign labelText1 = "development" %}
+        {% endif %}
+      {% endif %}
     <div class="col-sm-4">
       <div class="series raised">
         <div class="series-banner">
           <h4 class="series-label">
-            <div class="{{ labelStyle }}">{{ labelText }}</div>
+            <div class="{{ labelStyle1 }}">{{ labelText1 }}</div>
           </h4>
         </div>
         <div class="clear"></div>
         <h3 class="version">{{ version }}</h3>
         <h6 class="version-date">{{ latestRelease.date }}</h6>
-        <div class="description">{{ latestRelease.summary }}</div>
+        <div class="description">{{ releaseDetails.series.overview | truncate: 120 }}</div>
         <div class="more-info">
           <a class="btn btn-primary" href="/releases/{{version}}/">
             More info&nbsp;&nbsp;&nbsp;&nbsp;
@@ -55,7 +65,7 @@
   aria-expanded="false"
 >
   <div class="row empty"></div>
-  {% for version in site.data.versions.versions %} 
+  {% for version in versionOrder %} 
     {% assign formatedVersion = version | replace: ".", "" %} 
     {% assign releaseDetails = site.data.releases[formatedVersion] %} 
     {% if releaseDetails.series.hidden == false %} 
@@ -81,7 +91,7 @@
             <div class="clear"></div>
             <h3 class="version">{{ version }}</h3>
             <h6 class="version-date">{{ latestRelease.date }}</h6>
-            <div class="description">{{ latestRelease.summary }}</div>
+            <div class="description">{{ releaseDetails.series.overview | truncate: 120 }}</div>
             <div class="more-info">
               <a class="btn btn-primary" href="/releases/{{version}}/">
                 More info&nbsp;&nbsp;&nbsp;&nbsp;
@@ -126,7 +136,14 @@
               {% elsif dbVersions != null %}
                 <td>
                   <span class="test-with-subcategory"> Database: </span> {{ dbVersions  | join: ", "  }} <br />
-                  <span class="test-with-subcategory"> JDBC Driver: </span> {{ driverVersions  | join: ", "  }} <br />
+                  {% if integration.name == 'Cassandra'	or integration.name == 'MongoDB' %}
+                    <span class="test-with-subcategory"> Driver:</span> {{ driverVersions  | join: ", "  }} <br />
+                  {% else %}
+                    <span class="test-with-subcategory"> JDBC Driver: </span> {{ driverVersions  | join: ", "  }} <br />
+                  {% endif %}
+                  {% if compat.note != null %}
+                    <span class="test-with-subcategory"> * {{ compat.note  }} </span> <br />
+                  {% endif %}
                 </td>
               {% endif %}
             {% else %}
@@ -143,5 +160,6 @@
 </table>
 <h6 class="table-note">
   The Debezium connectors have been tested with the versions of Java, Apache Kafka (Connect), and databases listed above.
-  Note that Debezium might also be compatible with other database versions not listed here.
+  Testing is done using Linux containers.
+  Specific Debezium connectors might also be compatible with other database versions not listed here.
 </h6>

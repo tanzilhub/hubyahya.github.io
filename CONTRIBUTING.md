@@ -170,7 +170,7 @@ If the reviewers ask you to make additional changes, simply switch to your topic
 
     $ git checkout DBZ-1234
 
-and then make the changes on that branch and either add a new commit or ammend your previous commits. When you've addressed the reviewers' concerns, push your changes to your `origin` repository:
+and then make the changes on that branch and either add a new commit or amend your previous commits. When you've addressed the reviewers' concerns, push your changes to your `origin` repository:
 
     $ git push origin DBZ-1234
 
@@ -198,7 +198,7 @@ Some changes to the website are fairly common, so they're described here.
 
 #### Add a blog post
 
-Anyone can write a blog post that is related to Debezium. Simply add a new AsciiDoc file to the `blog` directory, including the date in the filename using the same format as the other files (e.g., "2016-03-18-title-of-blog-post.adoc"). The file should also contain jekyll front matter like the following:
+Anyone can write a blog post that is related to Debezium. Simply add a new AsciiDoc file to the `_posts` directory, including the date in the filename using the same format as the other files (e.g., "2016-03-18-title-of-blog-post.adoc"). The file should also contain jekyll front matter like the following:
 
     ---
     layout: post
@@ -369,5 +369,5 @@ Here's a quick check list for a good pull request (PR):
 * One commit per PR
 * One feature/change per PR
 * No changes not directly related to your change (e.g. no formatting changes or refactoring to existing code, if you want to refactor/improve existing code that's a separate discussion and separate JIRA issue)
-* A full build completes succesfully
+* A full build completes successfully
 * Do a rebase on upstream `develop`

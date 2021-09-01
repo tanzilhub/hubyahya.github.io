@@ -5,7 +5,7 @@
         banner-development.hbs
         banner-outdated.hbs
 --}}
-{{#if (or (eq page.version 'master') (gt page.version page.attributes.version-current))}}
+{{#if (or (eq page.version 'nightly') (eq page.version 'dev') (gt page.version page.attributes.version-current))}}
     {{!-- For antora.yml that references master or a version less than current defined in playbook, add development banner --}}
     {{> banner-development}}
 {{else if (eq page.version page.attributes.version-current)}}

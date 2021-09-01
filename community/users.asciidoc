@@ -18,20 +18,28 @@ please send a pull request for updating the https://github.com/debezium/debezium
 * Bolt (https://debezium.io/blog/2020/11/04/streaming-vitess-at-bolt/[details])
 * Convoy (https://medium.com/convoy-tech/logs-offsets-near-real-time-elt-with-apache-kafka-snowflake-473da1e4d776[details])
 * Delhivery (https://debezium.io/blog/2020/02/25/lessons-learned-running-debezium-with-postgresql-on-rds/[details])
+* DeviantArt (https://www.wix.engineering/post/change-data-capture-at-deviantart[more details])
 * Experience
 * Flipkart
 * GoHealth
 * JW Player (https://www.slideshare.net/jwplayer/polylog-a-logbased-architecture-for-distributed-systems-124997666[details])
 * Kenshoo
+* Klabin S.A.
 * Lendingkart Tech
+* MEGOGO
 * OYO
 * Pipedrive
 * Segment (used with https://ctlstore.segment.com/[ctlstore])
 * Shopify
+* Strava
+* SugarCRM
 * Synaltic (https://www.synaltic.fr/blog/conference-poss-11-12-2019[details in french])
 * Traveloka
 * Trendyol (https://medium.com/trendyol-tech/transaction-log-tailing-with-debezium-part-1-aeb968d72220[details])
+* TrueAccord
+* Ubisoft
 * Usabilla by Surveymonkey
+* Via Varejo (https://viatech.medium.com/uma-estrat%C3%A9gia-de-cdc-com-debezium-e27aa945d7b0)
 * Vimeo
 * WePay, Inc. (https://wecode.wepay.com/posts/streaming-databases-in-realtime-with-mysql-debezium-kafka[details], https://wecode.wepay.com/posts/streaming-cassandra-at-wepay-part-1[more details])
 * ... and you? Then let us know and get added to the list, too. Thanks!
@@ -40,9 +48,11 @@ please send a pull request for updating the https://github.com/debezium/debezium
 
 Debezium is also integrated with and used by a number of downstream 3rd-party projects and products:
 
+* https://github.com/airbytehq/airbyte/blob/master/airbyte-integrations/connectors/source-mysql/src/main/java/io/airbyte/integrations/source/mysql/DebeziumRecordPublisher.java[Airbyte]
 * https://camel.apache.org/components/latest/debezium-postgres-component.html[Apache Camel]
 * https://ci.apache.org/projects/flink/flink-docs-release-1.11/dev/table/connectors/formats/debezium.html[Apache Flink]
 * https://pulsar.apache.org/docs/en/io-cdc-debezium/[Apache Pulsar]
+* https://www.floodplain.io[Floodplain]
 * https://cloud.google.com/blog/products/data-analytics/how-to-move-data-from-mysql-to-bigquery[Google Cloud DataFlow]
 * https://jet-start.sh/docs/tutorials/cdc[Hazecast Jet]
 * https://devcenter.heroku.com/articles/heroku-data-connectors[Heroku’s Streaming Data Connectors]
@@ -50,3 +60,4 @@ Debezium is also integrated with and used by a number of downstream 3rd-party pr
 * https://materialize.io/docs/third-party/debezium/[Materialize]
 * https://siddhi-io.github.io/siddhi-io-cdc/[Siddhi]
 * https://spring.io/blog/2020/12/14/case-study-change-data-capture-cdc-analysis-with-cdc-debezium-source-and-analytics-sink-in-real-time[Spring Cloud Stream]
+* https://github.com/ververica/flink-cdc-connectors[Ververica Flink CDC connectors]

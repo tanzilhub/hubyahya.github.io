@@ -1,0 +1,460 @@
+---
+layout: release-notes
+title: Release Notes for Debezium 1.6
+debezium-version: "1.6"
+---
+:toc:
+:toc-placement: macro
+:toclevels: 1
+:sectanchors:
+:linkattrs:
+:icons: font
+
+All notable changes for Debezium releases are documented in this file.
+Release numbers follow http://semver.org[Semantic Versioning].
+
+toc::[]
+
+[[release-1.6.1.final]]
+== *Release 1.6.1.Final* _(July 23rd, 2021)_
+
+See the https://issues.redhat.com/secure/ReleaseNote.jspa?projectId=12317320&version=12359005[complete list of issues].
+
+=== Kafka compatibility
+
+This release has been built against Kafka Connect 2.7.0 and has been tested with version 2.7.0 of the Kafka brokers.
+See the https://kafka.apache.org/documentation/#upgrade[Kafka documentation] for compatibility with other versions of Kafka brokers.
+
+
+=== Upgrading
+
+Before upgrading any connector, be sure to check the backward-incompatible changes that have been made since the release you were using.
+
+When you decide to upgrade one of these connectors to 1.6.1.Final from any earlier versions,
+first check the migration notes for the version you're using.
+Gracefully stop the running connector, remove the old plugin files, install the 1.6.1.Final plugin files, and restart the connector using the same configuration.
+Upon restart, the 1.6.1.Final connectors will continue where the previous connector left off.
+As one might expect, all change events previously written to Kafka by the old connector will not be modified.
+
+If you are using our docker images then do not forget to pull them fresh from Docker registry.
+
+
+=== Breaking changes
+
+There are no breaking changes in the release.
+
+
+=== New Features
+
+There are no new features in the release.
+
+
+=== Fixes
+
+* Support invisible columns with MySql 8.0.23+ https://issues.jboss.org/browse/DBZ-3623[DBZ-3623]
+* Db2Connector is unable to establish validation connection https://issues.jboss.org/browse/DBZ-3632[DBZ-3632]
+* MySQL Connector error after execute a "create role" statement https://issues.jboss.org/browse/DBZ-3686[DBZ-3686]
+* Error parsing query, even with database.history.skip.unparseable.ddl https://issues.jboss.org/browse/DBZ-3717[DBZ-3717]
+* Support for TABLE_TYPE missing form MySQL grammar https://issues.jboss.org/browse/DBZ-3718[DBZ-3718]
+* Debezium mysql connector plugin throws SQL syntax error during incremental snapshot https://issues.jboss.org/browse/DBZ-3725[DBZ-3725]
+
+
+=== Other changes
+
+* Add documentation about new capturing implementation for the MySQL connector to downstream product https://issues.jboss.org/browse/DBZ-3140[DBZ-3140]
+* Doc clarification on connector rewrite https://issues.jboss.org/browse/DBZ-3711[DBZ-3711]
+* Update Oracle connector deployment instructions for consistency https://issues.jboss.org/browse/DBZ-3772[DBZ-3772]
+
+
+
+[[release-1.6.0.final]]
+== *Release 1.6.0.Final* _(June 30th, 2021)_
+
+See the https://issues.redhat.com/secure/ReleaseNote.jspa?projectId=12317320&version=12358966[complete list of issues].
+
+=== Kafka compatibility
+
+This release has been built against Kafka Connect 2.7.0 and has been tested with version 2.7.0 of the Kafka brokers.
+See the https://kafka.apache.org/documentation/#upgrade[Kafka documentation] for compatibility with other versions of Kafka brokers.
+
+
+=== Upgrading
+
+Before upgrading any connector, be sure to check the backward-incompatible changes that have been made since the release you were using.
+
+When you decide to upgrade one of these connectors to 1.6.0.Final from any earlier versions,
+first check the migration notes for the version you're using.
+Gracefully stop the running connector, remove the old plugin files, install the 1.6.0.Final plugin files, and restart the connector using the same configuration.
+Upon restart, the 1.6.0.Final connectors will continue where the previous connector left off.
+As one might expect, all change events previously written to Kafka by the old connector will not be modified.
+
+If you are using our docker images then do not forget to pull them fresh from Docker registry.
+
+
+=== Breaking changes
+
+There are no breaking changes in the release.
+
+
+=== New Features
+
+* Allow specifying of Oracle archive log location https://issues.redhat.com/browse/DBZ-3661[DBZ-3661]
+
+
+=== Fixes
+
+* Fix connect container build to be compatible with Oracle Instant Client https://issues.redhat.com/browse/DBZ-2547[DBZ-2547]
+* Schema change events of excluded databases are discarded  https://issues.redhat.com/browse/DBZ-3622[DBZ-3622]
+* Provide a descriptive error when enabling log.mining.archive.log.only.mode with an offset SCN that isn't yet in an archive log. https://issues.redhat.com/browse/DBZ-3665[DBZ-3665]
+* When LOB support is disabled, use legacy SCN mining algorithm https://issues.redhat.com/browse/DBZ-3676[DBZ-3676]
+
+
+=== Other changes
+
+* Oracle connector error with tables using unique index keys: "key must not be null"  https://issues.redhat.com/browse/DBZ-1211[DBZ-1211]
+* Database history properties missing in connector docs https://issues.redhat.com/browse/DBZ-3459[DBZ-3459]
+* Oracle connector doc fixes https://issues.redhat.com/browse/DBZ-3662[DBZ-3662]
+* Change the reached max batch size log message to DEBUG level https://issues.redhat.com/browse/DBZ-3664[DBZ-3664]
+* Remove unused code https://issues.redhat.com/browse/DBZ-3672[DBZ-3672]
+* Update deprecated config for debezium smt https://issues.redhat.com/browse/DBZ-3673[DBZ-3673]
+* Align Antlr versions used during testing https://issues.redhat.com/browse/DBZ-3675[DBZ-3675]
+
+
+
+[[release-1.6.0-cr1]]
+== *Release 1.6.0.CR1* _(June 24th, 2021)_
+
+See the https://issues.redhat.com/secure/ReleaseNote.jspa?projectId=12317320&version=12358695[complete list of issues].
+
+=== Kafka compatibility
+
+This release has been built against Kafka Connect 2.7.0 and has been tested with version 2.7.0 of the Kafka brokers.
+See the https://kafka.apache.org/documentation/#upgrade[Kafka documentation] for compatibility with other versions of Kafka brokers.
+
+
+=== Upgrading
+
+Before upgrading any connector, be sure to check the backward-incompatible changes that have been made since the release you were using.
+
+When you decide to upgrade one of these connectors to 1.6.0.CR1 from any earlier versions,
+first check the migration notes for the version you're using.
+Gracefully stop the running connector, remove the old plugin files, install the 1.6.0.CR1 plugin files, and restart the connector using the same configuration.
+Upon restart, the 1.6.0.CR1 connectors will continue where the previous connector left off.
+As one might expect, all change events previously written to Kafka by the old connector will not be modified.
+
+If you are using our docker images then do not forget to pull them fresh from Docker registry.
+
+
+=== Breaking changes
+
+There are no breaking changes in the release.
+
+
+=== New Features
+
+* Implement SKIPPED_OPERATIONS for SQLServer https://issues.redhat.com/browse/DBZ-2697[DBZ-2697]
+* Handling database connection timeout during schema recovery https://issues.redhat.com/browse/DBZ-3615[DBZ-3615]
+* Scope mined DDL events to include/exclude lists if provided https://issues.redhat.com/browse/DBZ-3634[DBZ-3634]
+* Support heartbeats during periods of low change event activity https://issues.redhat.com/browse/DBZ-3639[DBZ-3639]
+
+
+=== Fixes
+
+* Fix exception on not found table https://issues.redhat.com/browse/DBZ-3523[DBZ-3523]
+* Transaction commit event dispatch fails if no active transaction in progress. https://issues.redhat.com/browse/DBZ-3593[DBZ-3593]
+* Additional unique index referencing columns not exposed by CDC causes exception https://issues.redhat.com/browse/DBZ-3597[DBZ-3597]
+* GRANT/REVOKE for roles is not working https://issues.redhat.com/browse/DBZ-3610[DBZ-3610]
+* ParsingException for ALTER TABLE against a table that is unknown to the connector. https://issues.redhat.com/browse/DBZ-3612[DBZ-3612]
+* Oracle connector continually logging warnings about already processed transactions. https://issues.redhat.com/browse/DBZ-3616[DBZ-3616]
+* StringIndexOutOfBoundsException thrown while handling UTF-8 characters https://issues.redhat.com/browse/DBZ-3618[DBZ-3618]
+* DDL ParsingException - "SUPPLEMENTAL LOG DATA (UNIQUE INDEX) COLUMNS" https://issues.redhat.com/browse/DBZ-3619[DBZ-3619]
+* Oracle transaction reconciliation fails to lookup primary key columns if UPDATE sets columns to only NULL https://issues.redhat.com/browse/DBZ-3631[DBZ-3631]
+* Oracle DDL parser fails on CREATE TABLE: mismatched input 'maxtrans' expecting {'AS', ';'} https://issues.redhat.com/browse/DBZ-3641[DBZ-3641]
+* Antlr version mismatch https://issues.redhat.com/browse/DBZ-3646[DBZ-3646]
+* SQL Agent does not start in SqlServer  image when deployed to openshift https://issues.redhat.com/browse/DBZ-3648[DBZ-3648]
+* Java UBI image is lacking gzip utility https://issues.redhat.com/browse/DBZ-3659[DBZ-3659]
+
+=== Other changes
+
+* Upgrade to Apicurio Registry 2.0 https://issues.redhat.com/browse/DBZ-3171[DBZ-3171]
+* Vitess: rename "master" branch to "main" https://issues.redhat.com/browse/DBZ-3275[DBZ-3275]
+* Formatting updates to correct errors in documentation builds https://issues.redhat.com/browse/DBZ-3518[DBZ-3518]
+* Prepare test-suite for Kafka on RHEL https://issues.redhat.com/browse/DBZ-3566[DBZ-3566]
+* Upgrade to Quarkus 2.0.0.Final https://issues.redhat.com/browse/DBZ-3602[DBZ-3602]
+* Some dependencies are broken in ocp testsuite after BOM introduction https://issues.redhat.com/browse/DBZ-3625[DBZ-3625]
+* Handle updated json schema for connector passwords https://issues.redhat.com/browse/DBZ-3637[DBZ-3637]
+* MySQL SourceInfo should be public https://issues.redhat.com/browse/DBZ-3638[DBZ-3638]
+* Change CLOB/BLOB data type support to an opt-in feature https://issues.redhat.com/browse/DBZ-3645[DBZ-3645]
+* Denote BLOB support as incubating https://issues.redhat.com/browse/DBZ-3651[DBZ-3651]
+
+
+
+[[release-1.6.0-beta2]]
+== *Release 1.6.0.Beta2* _(June 10th, 2021)_
+
+See the https://issues.redhat.com/secure/ReleaseNote.jspa?projectId=12317320&version=12358021[complete list of issues].
+
+
+=== Kafka compatibility
+
+This release has been built against Kafka Connect 2.7.0 and has been tested with version 2.7.0 of the Kafka brokers.
+See the https://kafka.apache.org/documentation/#upgrade[Kafka documentation] for compatibility with other versions of Kafka brokers.
+
+
+=== Upgrading
+
+Before upgrading any connector, be sure to check the backward-incompatible changes that have been made since the release you were using.
+
+When you decide to upgrade one of these connectors to 1.6.0.Beta2 from any earlier versions,
+first check the migration notes for the version you're using.
+Gracefully stop the running connector, remove the old plugin files, install the 1.6.0.Beta2 plugin files, and restart the connector using the same configuration.
+Upon restart, the 1.6.0.Beta2 connectors will continue where the previous connector left off.
+As one might expect, all change events previously written to Kafka by the old connector will not be modified.
+
+If you are using our docker images then do not forget to pull them fresh from Docker registry.
+
+
+=== Breaking changes
+
+There are no breaking changes in the release.
+
+
+=== New Features
+
+* Clarification on MySQL vs MariaDb Usage https://issues.jboss.org/browse/DBZ-1145[DBZ-1145]
+* Pravega sink for Debezium Server https://issues.jboss.org/browse/DBZ-3546[DBZ-3546]
+* Postgres - Column default values are not extracted https://issues.jboss.org/browse/DBZ-2790[DBZ-2790]
+* Add support for snapshot.include.collection.list https://issues.jboss.org/browse/DBZ-3062[DBZ-3062]
+* Apply filters with empty filter changes 'Exclude' selection to 'Include' https://issues.jboss.org/browse/DBZ-3102[DBZ-3102]
+* Adjust OpenShift tests to support new version of Strimzi CRDs https://issues.jboss.org/browse/DBZ-3475[DBZ-3475]
+* Remove SchemaProcessor From Cassandra Connector https://issues.jboss.org/browse/DBZ-3506[DBZ-3506]
+* Provide a `snapshot.locking.mode` option for Oracle https://issues.jboss.org/browse/DBZ-3557[DBZ-3557]
+* Implement support for JSON function in MySQL parser https://issues.jboss.org/browse/DBZ-3559[DBZ-3559]
+
+
+=== Fixes
+
+* AbstractConnectorTest should work in environment with longer latency https://issues.jboss.org/browse/DBZ-400[DBZ-400]
+* PostgreSQL connector task fails to resume streaming because replication slot is active https://issues.jboss.org/browse/DBZ-3068[DBZ-3068]
+* SQL Server connector buffers all CDC events in memory if more than one table is captured https://issues.jboss.org/browse/DBZ-3486[DBZ-3486]
+* SQLServer low throughput tables increase usage of TempDB https://issues.jboss.org/browse/DBZ-3515[DBZ-3515]
+* Incorrectly identifies primary member of replica set https://issues.jboss.org/browse/DBZ-3522[DBZ-3522]
+* Cannot enable binlog streaming when INITIAL_ONLY snapshot mode configured https://issues.jboss.org/browse/DBZ-3529[DBZ-3529]
+* Connector CRD name and database.server.name cannot use the same value in OCP test-suite https://issues.jboss.org/browse/DBZ-3538[DBZ-3538]
+* SelectLobParser checks for lowercase "is null" instead of uppercase "IS NULL" https://issues.jboss.org/browse/DBZ-3545[DBZ-3545]
+* DDL ParsingException "mismatched input 'sharing'" for create table syntax. https://issues.jboss.org/browse/DBZ-3549[DBZ-3549]
+* DDL ParsingException on alter table https://issues.jboss.org/browse/DBZ-3554[DBZ-3554]
+* ORA-00310 when online redo log is archived and replaced by redo log with new sequence https://issues.jboss.org/browse/DBZ-3561[DBZ-3561]
+* Server name pattern is unnecessarily restrictive https://issues.jboss.org/browse/DBZ-3562[DBZ-3562]
+* ORA-01289 error encountered on Oracle RAC when multiple logs are mined with same sequence number https://issues.jboss.org/browse/DBZ-3563[DBZ-3563]
+* MySQL metrics documentation refers to legacy implementation https://issues.jboss.org/browse/DBZ-3572[DBZ-3572]
+* Update downstream MySQL doc to reference streaming metrics vs. binlog metrics  https://issues.jboss.org/browse/DBZ-3582[DBZ-3582]
+* No viable alternative at input "add COLUMN optional" https://issues.jboss.org/browse/DBZ-3586[DBZ-3586]
+* NPE when OracleValueConverters get unsupported jdbc type https://issues.jboss.org/browse/DBZ-3587[DBZ-3587]
+* SelectLobParser throws NullPointerException when parsing SQL for an unknown table https://issues.jboss.org/browse/DBZ-3591[DBZ-3591]
+* Pulsar sink tries to convert null key to string https://issues.jboss.org/browse/DBZ-3595[DBZ-3595]
+* Oracle RAC URL does not correctly substitute node IP addresses https://issues.jboss.org/browse/DBZ-3599[DBZ-3599]
+* Oracle Connector - got InputMismatchException mismatched input 'CASCADE' expecting {'AS', 'PURGE', ';'} https://issues.jboss.org/browse/DBZ-3606[DBZ-3606]
+
+
+=== Other changes
+
+* Unsupported column types should be ignored as with other connectors https://issues.jboss.org/browse/DBZ-814[DBZ-814]
+* Make outbox extensions dependency on tracing extension optional https://issues.jboss.org/browse/DBZ-2834[DBZ-2834]
+* Avoid copying in DML handling https://issues.jboss.org/browse/DBZ-3328[DBZ-3328]
+* Document impact of using --hostname when starting Connect container https://issues.jboss.org/browse/DBZ-3466[DBZ-3466]
+* Update external link to AMQ Streams documentation https://issues.jboss.org/browse/DBZ-3502[DBZ-3502]
+* Update external links in downstream docs to AMQ Streams deployment information  https://issues.jboss.org/browse/DBZ-3525[DBZ-3525]
+* Debezium Server Core builds plugin artifact https://issues.jboss.org/browse/DBZ-3542[DBZ-3542]
+* List contributors script fails when name contains a "/" character https://issues.jboss.org/browse/DBZ-3544[DBZ-3544]
+* Upgrade to Quarkus 2.0.0.CR3 https://issues.jboss.org/browse/DBZ-3550[DBZ-3550]
+* Reduce DB round-trips for LOB handling https://issues.jboss.org/browse/DBZ-3556[DBZ-3556]
+* Oracle benchmark does not execute LogMiner parser performance tests https://issues.jboss.org/browse/DBZ-3560[DBZ-3560]
+* Clarify purpose of database.history.retention.hours https://issues.jboss.org/browse/DBZ-3565[DBZ-3565]
+* Improve documentation related to signalling table DDL https://issues.jboss.org/browse/DBZ-3568[DBZ-3568]
+* cassandra-driver-core 3.5.0 managed in Debezium BOM too old for testcontainers 1.15.3 https://issues.jboss.org/browse/DBZ-3589[DBZ-3589]
+* Remove some dead code in Postgres connector https://issues.jboss.org/browse/DBZ-3596[DBZ-3596]
+* Debezium server sink oracle database to pulsar without default namespace "public/default" https://issues.jboss.org/browse/DBZ-3601[DBZ-3601]
+* Document OffsetContext.incrementalSnapshotEvents() https://issues.jboss.org/browse/DBZ-3607[DBZ-3607]
+* Database skipping logic isn't correct https://issues.jboss.org/browse/DBZ-3608[DBZ-3608]
+
+
+
+[[release-1.6.0-beta1]]
+== *Release 1.6.0.Beta1* _(May 20th, 2021)_
+
+See the https://issues.redhat.com/secure/ReleaseNote.jspa?projectId=12317320&version=12357565[complete list of issues].
+
+
+=== Kafka compatibility
+
+This release has been built against Kafka Connect 2.7.0 and has been tested with version 2.7.0 of the Kafka brokers.
+See the https://kafka.apache.org/documentation/#upgrade[Kafka documentation] for compatibility with other versions of Kafka brokers.
+
+
+=== Upgrading
+
+Before upgrading any connector, be sure to check the backward-incompatible changes that have been made since the release you were using.
+
+When you decide to upgrade one of these connectors to 1.6.0.Beta1 from any earlier versions,
+first check the migration notes for the version you're using.
+Gracefully stop the running connector, remove the old plugin files, install the 1.6.0.Beta1 plugin files, and restart the connector using the same configuration.
+Upon restart, the 1.6.0.Beta1 connectors will continue where the previous connector left off.
+As one might expect, all change events previously written to Kafka by the old connector will not be modified.
+
+If you are using our docker images then do not forget to pull them fresh from Docker registry.
+
+
+=== Breaking changes
+
+`RENAME TABLE` statement with multiple tables now emits multiple schema change events, one for each of the renamed tables (https://issues.jboss.org/browse/DBZ-3399[DBZ-3399]).
+
+
+=== New Features
+
+* Support ad hoc snapshots on MySQL connector https://issues.jboss.org/browse/DBZ-66[DBZ-66]
+* Support DDL operations https://issues.jboss.org/browse/DBZ-2916[DBZ-2916]
+* Add support for RAW, LONG, LONG RAW, BLOB, and CLOB data types https://issues.jboss.org/browse/DBZ-2948[DBZ-2948]
+* Update Doc For Cassandra Connector https://issues.jboss.org/browse/DBZ-3092[DBZ-3092]
+* Document log.mining.strategy for Oracle connector https://issues.jboss.org/browse/DBZ-3393[DBZ-3393]
+* Update DOC with the new NUM_OF_CHANGE_EVENT_QUEUES parameter https://issues.jboss.org/browse/DBZ-3480[DBZ-3480]
+* Use date format model that does not depend on client NLS settings in integration tests https://issues.jboss.org/browse/DBZ-3482[DBZ-3482]
+* Provide Japanese translation of README.md  https://issues.jboss.org/browse/DBZ-3503[DBZ-3503]
+* Better handling of invalid SQL Server connector configuration https://issues.jboss.org/browse/DBZ-3505[DBZ-3505]
+* Allow table.include.list and table.exclude.list to be updated after a connector is created https://issues.jboss.org/browse/DBZ-1263[DBZ-1263]
+* Allow retry when SQL Server is down temporarily https://issues.jboss.org/browse/DBZ-3339[DBZ-3339]
+
+
+=== Fixes
+
+* Database name should not be converted to lower case if tablenameCaseInsensitive=True in Oracle Connector https://issues.jboss.org/browse/DBZ-2203[DBZ-2203]
+* Not able to configure Debezium Server via smallrye/microprofile environment variables https://issues.jboss.org/browse/DBZ-2622[DBZ-2622]
+* Upgrading from debezium 1.2.2 to 1.4.0 stopped snapshotting new tables https://issues.jboss.org/browse/DBZ-2944[DBZ-2944]
+* oracle logminer cannot add duplicate logfile https://issues.jboss.org/browse/DBZ-3266[DBZ-3266]
+* Oracle connector does not correctly handle partially committed transactions https://issues.jboss.org/browse/DBZ-3322[DBZ-3322]
+* Data loss when MongoDB snapshot take longer than the Oplog Window https://issues.jboss.org/browse/DBZ-3331[DBZ-3331]
+* First online log query does not limit results to those that are available. https://issues.jboss.org/browse/DBZ-3332[DBZ-3332]
+* Connector crashing after running for some time https://issues.jboss.org/browse/DBZ-3377[DBZ-3377]
+* Broken links in downstream Monitoring chapter https://issues.jboss.org/browse/DBZ-3408[DBZ-3408]
+* Broken links in User guide table of routing SMT configuration options https://issues.jboss.org/browse/DBZ-3410[DBZ-3410]
+* Broken link to basic configuration example in downstream content-based routing topic https://issues.jboss.org/browse/DBZ-3412[DBZ-3412]
+* Cassandra connector does not react on schema changes properly https://issues.jboss.org/browse/DBZ-3417[DBZ-3417]
+* Debezium mapped diagnostic contexts doesn't work https://issues.jboss.org/browse/DBZ-3438[DBZ-3438]
+* source.timestamp.mode=commit imposes a significant performance penalty https://issues.jboss.org/browse/DBZ-3452[DBZ-3452]
+* Timezone difference not considered in `LagFromSourceInMilliseconds` calculation https://issues.jboss.org/browse/DBZ-3456[DBZ-3456]
+* "Found null value for non-optional schema" error when issuing TRUNCATE from Postgres on a table with a PK https://issues.jboss.org/browse/DBZ-3469[DBZ-3469]
+* Connector crashes when table name contains '-' character https://issues.jboss.org/browse/DBZ-3485[DBZ-3485]
+* Kafka Clients in Debezium Server is not aligned with Debezium Kafka version https://issues.jboss.org/browse/DBZ-3498[DBZ-3498]
+* ReadToInsertEvent SMT needs to set ConfigDef https://issues.jboss.org/browse/DBZ-3508[DBZ-3508]
+* Debezium configuration can be modified after instantiation https://issues.jboss.org/browse/DBZ-3514[DBZ-3514]
+* Oracle redo log switch not detected when using multiple archiver process threads https://issues.jboss.org/browse/DBZ-3516[DBZ-3516]
+* Cannot enable binlog streaming when INITIAL_ONLY snapshot mode configured https://issues.jboss.org/browse/DBZ-3529[DBZ-3529]
+* Missing schema function in DDL Parser https://issues.jboss.org/browse/DBZ-3543[DBZ-3543]
+* Retry logic for "No more data to read from socket" is too strict https://issues.jboss.org/browse/DBZ-3472[DBZ-3472]
+
+
+=== Other changes
+
+* Document new source block and fix formatting issues https://issues.jboss.org/browse/DBZ-1614[DBZ-1614]
+* Re-connect after "too many connections" https://issues.jboss.org/browse/DBZ-2300[DBZ-2300]
+* Modularize doc for MongoDB component https://issues.jboss.org/browse/DBZ-2334[DBZ-2334]
+* Rebase Postgres snapshot modes on exported snapshots https://issues.jboss.org/browse/DBZ-2337[DBZ-2337]
+* Enable continuous JFR recording https://issues.jboss.org/browse/DBZ-3082[DBZ-3082]
+* Remove deprecated Oracle connector option "database.tablename.case.insensitive" https://issues.jboss.org/browse/DBZ-3240[DBZ-3240]
+* Improve Oracle redo logs query to avoid de-duplication step https://issues.jboss.org/browse/DBZ-3256[DBZ-3256]
+* Migrate Jenkins CI to OCP 4.0 in  PSI cloud  https://issues.jboss.org/browse/DBZ-3396[DBZ-3396]
+* Remove Antlr-based DML Parser https://issues.jboss.org/browse/DBZ-3400[DBZ-3400]
+* Update Oracle driver version https://issues.jboss.org/browse/DBZ-3460[DBZ-3460]
+* Incremental snapshot follow-up tasks https://issues.jboss.org/browse/DBZ-3500[DBZ-3500]
+* Unnecessary NPE due to autoboxing https://issues.jboss.org/browse/DBZ-3519[DBZ-3519]
+* Upgrade actions/cache to v2 version for formatting check https://issues.jboss.org/browse/DBZ-3520[DBZ-3520]
+* Improve documentation for Oracle supplemental logging requirements https://issues.jboss.org/browse/DBZ-3521[DBZ-3521]
+* SignalsIT leave table artifacts that cause other tests to fail https://issues.jboss.org/browse/DBZ-3533[DBZ-3533]
+* Mark xstream dependency as provided https://issues.jboss.org/browse/DBZ-3539[DBZ-3539]
+* Add test for Oracle table without PK https://issues.jboss.org/browse/DBZ-832[DBZ-832]
+
+
+
+[[release-1.6.0-alpha1]]
+== *Release 1.6.0.Alpha1* _(May 6th, 2021)_
+
+See the https://issues.redhat.com/secure/ReleaseNote.jspa?projectId=12317320&version=12353176[complete list of issues].
+
+
+=== Kafka compatibility
+
+This release has been built against Kafka Connect 2.7.0 and has been tested with version 2.7.0 of the Kafka brokers.
+See the https://kafka.apache.org/documentation/#upgrade[Kafka documentation] for compatibility with other versions of Kafka brokers.
+
+
+=== Upgrading
+
+Before upgrading any connector, be sure to check the backward-incompatible changes that have been made since the release you were using.
+
+When you decide to upgrade one of these connectors to 1.6.0.Alpha1 from any earlier versions,
+first check the migration notes for the version you're using.
+Gracefully stop the running connector, remove the old plugin files, install the 1.6.0.Alpha1 plugin files, and restart the connector using the same configuration.
+Upon restart, the 1.6.0.Alpha1 connectors will continue where the previous connector left off.
+As one might expect, all change events previously written to Kafka by the old connector will not be modified.
+
+If you are using our docker images then do not forget to pull them fresh from Docker registry.
+
+
+=== Breaking changes
+
+Debezium now requires Java 11 as a build and a runtime environment (https://issues.jboss.org/browse/DBZ-2875[DBZ-2875]).
+The only exception is Debezium Cassandra connector that still uses Java 8.
+
+
+=== New Features
+
+* Sink adapter for Apache Kafka https://issues.jboss.org/browse/DBZ-3382[DBZ-3382]
+* Optimisation on MongoDB and MySQL connector for skipped.operations https://issues.jboss.org/browse/DBZ-3403[DBZ-3403]
+* Incremental snapshotting https://issues.jboss.org/browse/DBZ-3473[DBZ-3473]
+
+
+=== Fixes
+
+* io.debezium.text.ParsingException: no viable alternative at input 'IDNUMBER(4)GENERATEDBY' https://issues.jboss.org/browse/DBZ-1721[DBZ-1721]
+* SKIPPED_OPERATIONS is added to CommonConnectorConfig.CONFIG_DEFINITION although it's not implemented in all connectors https://issues.jboss.org/browse/DBZ-2699[DBZ-2699]
+* Snapshot fails when reading TIME, DATE, DATETIME fields in mysql from ResultSet https://issues.jboss.org/browse/DBZ-3238[DBZ-3238]
+* Update to fabric8 kube client 5.x https://issues.jboss.org/browse/DBZ-3349[DBZ-3349]
+* An exception in resolveOracleDatabaseVersion if system language is not English https://issues.jboss.org/browse/DBZ-3397[DBZ-3397]
+* Change strimzi branch in jenkins openshift-test job to main https://issues.jboss.org/browse/DBZ-3404[DBZ-3404]
+* Broken link in downstream Monitoring chapter 7.3 https://issues.jboss.org/browse/DBZ-3409[DBZ-3409]
+* Broken link in content-based routing chapter to page for downloading the SMT scripting archive  https://issues.jboss.org/browse/DBZ-3411[DBZ-3411]
+* LogMinerDmlParser mishandles double single quotes in WHERE clauses https://issues.jboss.org/browse/DBZ-3413[DBZ-3413]
+* Incorrectly formatted links in downstream automatic topic creation doc https://issues.jboss.org/browse/DBZ-3414[DBZ-3414]
+* SMT acronym incorrectly expanded in Debezium User Guide https://issues.jboss.org/browse/DBZ-3415[DBZ-3415]
+* MariaDB -- support privilege DDL in parser https://issues.jboss.org/browse/DBZ-3422[DBZ-3422]
+* Change oc apply in jenkins openshift-test job to oc create https://issues.jboss.org/browse/DBZ-3423[DBZ-3423]
+* SQL Server property (snapshot.select.statement.overrides) only matches 1st entry if comma-separated list also contains spaces https://issues.jboss.org/browse/DBZ-3429[DBZ-3429]
+* Permission issue when running docker-compose or docker build as user not having uid 1001 https://issues.jboss.org/browse/DBZ-3453[DBZ-3453]
+* no viable alternative at input 'DROP TABLE IF EXISTS group' (Galera and MariaDB) https://issues.jboss.org/browse/DBZ-3467[DBZ-3467]
+* Debezium MySQL connector does not process tables with partitions https://issues.jboss.org/browse/DBZ-3468[DBZ-3468]
+* The building tools' version in README doc is outdated https://issues.jboss.org/browse/DBZ-3478[DBZ-3478]
+* MySQL DATE default value parser rejects timestamp https://issues.jboss.org/browse/DBZ-3497[DBZ-3497]
+* MySQL8 GRANT statement not parsable https://issues.jboss.org/browse/DBZ-3499[DBZ-3499]
+
+
+=== Other changes
+
+* Config validation for Db2 https://issues.jboss.org/browse/DBZ-3118[DBZ-3118]
+* Add smoke test for UI https://issues.jboss.org/browse/DBZ-3133[DBZ-3133]
+* Create new metric "CapturedTables" https://issues.jboss.org/browse/DBZ-3161[DBZ-3161]
+* Handle deadlock issue for MySql build stuck for 6h https://issues.jboss.org/browse/DBZ-3233[DBZ-3233]
+* Document using Connect REST API for log level changes https://issues.jboss.org/browse/DBZ-3270[DBZ-3270]
+* User Guide corrections for SQL Server connector https://issues.jboss.org/browse/DBZ-3297[DBZ-3297]
+* User Guide corrections for Db2 connector https://issues.jboss.org/browse/DBZ-3298[DBZ-3298]
+* User Guide corrections for MySQL connector https://issues.jboss.org/browse/DBZ-3299[DBZ-3299]
+* User Guide corrections for MongoDB connector https://issues.jboss.org/browse/DBZ-3300[DBZ-3300]
+* Allow building the Oracle connector on CI https://issues.jboss.org/browse/DBZ-3365[DBZ-3365]
+* Add tests for Protobuf Converter https://issues.jboss.org/browse/DBZ-3369[DBZ-3369]
+* Use current SQL Server container image for testing and examples https://issues.jboss.org/browse/DBZ-3379[DBZ-3379]
+* Reword prereq in downstream SQL Server connector doc  https://issues.jboss.org/browse/DBZ-3392[DBZ-3392]
+* Duplicate entry in MySQL connector properties table for `mysql-property-skipped-operations`  https://issues.jboss.org/browse/DBZ-3402[DBZ-3402]
+* Docs clarification around tombstone events https://issues.jboss.org/browse/DBZ-3416[DBZ-3416]
+* Validate logical server name contains only alpha-numerical characters https://issues.jboss.org/browse/DBZ-3427[DBZ-3427]
+* Provide a "quick" build profile https://issues.jboss.org/browse/DBZ-3449[DBZ-3449]
+* Avoid warning about superfluous exclusion during packaging https://issues.jboss.org/browse/DBZ-3458[DBZ-3458]
+* Upgrade binlog client https://issues.jboss.org/browse/DBZ-3463[DBZ-3463]
