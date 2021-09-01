@@ -4,7 +4,7 @@
         <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Debezium connector for MySQL :: Debezium Documentation</title>
-    <link rel="canonical" href="https://www.debezium.io/documentation/reference/connectors/mysql.html">
+    <link rel="canonical" href="https://www.debezium.io/documentation/reference/stable/connectors/mysql.html">
     <meta name="generator" content="Antora 2.3.4">
 <link rel="stylesheet" href="../../../debezium-antora/css/site.css">
 <link rel="stylesheet" href="../../../debezium-antora/css/debezium-antora.css">
@@ -46,7 +46,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">Debezium Documentation</a></h3>
+    <h3 class="title"><a href="../index.html">Debezium Documentation - 1.6</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -163,9 +163,6 @@
     <a class="nav-link" href="../integrations/cloudevents.html">CloudEvents</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../integrations/tracing.html">OpenTracing</a>
-  </li>
-  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../integrations/testcontainers.html">Integration Testing with Testcontainers</a>
   </li>
 </ul>
@@ -198,15 +195,21 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">Debezium Documentation</span>
+    <span class="title">Debezium Documentation - 1.6</span>
     <span class="version">1.4</span>
   </div>
   <ul class="components">
     <li class="component is-current">
-      <span class="title">Debezium Documentation</span>
+      <span class="title">Debezium Documentation - 1.6</span>
       <ul class="versions">
         <li class="version is-latest">
-          <a href="../../index.html">master</a>
+          <a href="../../stable/index.html">stable</a>
+        </li>
+        <li class="version">
+          <a href="../../nightly/index.html">nightly</a>
+        </li>
+        <li class="version">
+          <a href="../../1.7/index.html">1.7</a>
         </li>
         <li class="version is-current">
           <a href="../index.html">1.4</a>
@@ -239,7 +242,7 @@
 <main role="main" class="main">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="../../index.html" class="home-link"></a>
+  <a href="../../stable/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Debezium Documentation</a></li>
@@ -253,7 +256,9 @@
         <button class="version-menu-toggle versions-menu-current" title="Show other versions of page">1.4</button>
         <!--<button class="version-menu-toggle versions-menu-select" title="Select other versions">Select</button>-->
         <div class="version-menu">
-                <a class="version" href="../../connectors/mysql.html">master</a>
+                <a class="version" href="../../stable/connectors/mysql.html">stable</a>
+                <a class="version" href="../../nightly/connectors/mysql.html">nightly</a>
+                <a class="version" href="../../1.7/connectors/mysql.html">1.7</a>
                 <a class="version is-current" href="mysql.html">1.4</a>
                 <a class="version" href="../../1.3/connectors/mysql.html">1.3</a>
                 <a class="version" href="../../1.2/connectors/mysql.html">1.2</a>
@@ -265,15 +270,15 @@
         |
     </div>
     </div>
-  <div class="edit-this-page"><a href="https://github.com/debezium/debezium/edit/1.4/documentation/modules/ROOT/pages/connectors/mysql.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/uidoyen/debezium/edit/1.4/documentation/modules/ROOT/pages/connectors/mysql.adoc">Edit this Page</a></div>
   </div>
 <div class="article-grid">
 <div class="article-cell1">
 <article class="doc">
-            <div class="version-banner version-banner-development">
-    You are viewing documentation for the current development version of Debezium.
+            <div class="version-banner version-banner-outdated">
+    You are viewing documentation for an outdated version of Debezium.
     <br/>
-            If you want to view the latest stable version of this page, please go <a href="../../1.3/connectors/mysql.html">here</a>.
+            If you want to view the latest stable version of this page, please go <a href="../../stable/connectors/mysql.html">here</a>.
             
 </div>            <h1 class="page">Debezium connector for MySQL</h1>
         <div id="preamble">
@@ -568,7 +573,7 @@ A global order for events emitted to the schema change topic is vital. Therefore
     "databaseName": "inventory",
     "ddl": "CREATE TABLE products ( id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255) NOT NULL, description VARCHAR(512), weight FLOAT ); ALTER TABLE products AUTO_INCREMENT = 101;",
     "source" : {
-      "version": "1.4.0.Final",
+      "version": "1.4.0.Alpha1",
       "name": "mysql-server-1",
       "server_id": 0,
       "ts_ms": 0,
@@ -1192,7 +1197,7 @@ It is possible to override the table&#8217;s primary key by setting the <a href=
       "email": "annek@noanswer.org"
     },
     "source": { <i class="conum" data-value="10"></i><b>(10)</b>
-      "version": "1.4.0.Final",
+      "version": "1.4.0.Alpha1",
       "connector": "mysql",
       "name": "mysql-server-1",
       "ts_ms": 0,
@@ -1372,7 +1377,7 @@ In the <code>source</code> object, <code>ts_ms</code> indicates the time that th
       "email": "annek@noanswer.org"
     },
     "source": { <i class="conum" data-value="3"></i><b>(3)</b>
-      "version": "1.4.0.Final",
+      "version": "1.4.0.Alpha1",
       "name": "mysql-server-1",
       "connector": "mysql",
       "name": "mysql-server-1",
@@ -1531,7 +1536,7 @@ as a primary key change. For a primary key change, in place of an <code>UPDATE</
     },
     "after": null, <i class="conum" data-value="2"></i><b>(2)</b>
     "source": { <i class="conum" data-value="3"></i><b>(3)</b>
-      "version": "1.4.0.Final",
+      "version": "1.4.0.Alpha1",
       "connector": "mysql",
       "name": "mysql-server-1",
       "ts_ms": 1465581902300,
@@ -2868,7 +2873,7 @@ FROM information_schema.global_variables WHERE variable_name='log_bin';</code></
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Download the Debezium <a href="https://repo1.maven.org/maven2/io/debezium/debezium-connector-mysql/1.4.0.Final/debezium-connector-mysql-1.4.0.Final-plugin.tar.gz">MySQL connector plug-in</a>.</p>
+<p>Download the Debezium <a href="https://repo1.maven.org/maven2/io/debezium/debezium-connector-mysql/1.4.0.Alpha1/debezium-connector-mysql-1.4.0.Alpha1-plugin.tar.gz">MySQL connector plug-in</a>.</p>
 </li>
 <li>
 <p>Extract the files into your Kafka Connect environment.</p>
@@ -3095,7 +3100,7 @@ set up for a Debezium connector.</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Name of the MySQL user to use when connecting to the MySQL database server.</p>
+<p>Name of the MySQL database to use when connecting to the MySQL database server.</p>
 </div></div></td>
 </tr>
 <tr>
@@ -3454,17 +3459,6 @@ Setting <code>include.query`to `true</code> might expose tables or fields explic
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="mysql-property-max-queue-size-in-bytes"></a><a href="#mysql-property-max-queue-size-in-bytes"><code>max.queue.size.in.bytes</code></a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>0</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Long value for the maximum size in bytes of the blocking queue. The feature is disabled by default, it will be active if it&#8217;s set with a positive long value.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p><a id="mysql-property-poll-interval-ms"></a><a href="#mysql-property-poll-interval-ms"><code>poll.interval.ms</code></a></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
@@ -3771,17 +3765,6 @@ A possible use case for setting these properties is large, append-only tables. Y
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="mysql-property-snapshot-events-as-inserts"></a><a href="#mysql-property-snapshot-events-as-inserts"><code>snapshot.events&#8203;.as&#8203;.inserts</code></a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>true</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Controls whether or not to mark snapshot events as insert events (<code>"op": "c"</code>). If disabled, the Debezium default of marking snapshot events as reads (<code>"op": "r"</code>) will be used.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p><a id="mysql-property-min-row-count-to-stream-results"></a><a href="#mysql-property-min-row-count-to-stream-results"><code>min.row.count.to&#8203;.stream.results</code></a></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
@@ -3913,9 +3896,7 @@ By setting this option to <code>v1</code>, the structure used in earlier version
 </table>
 <div id="mysql-pass-through-configuration-properties" class="paragraph">
 <div class="title">Pass-through configuration properties</div>
-<p>The MySQL connector also supports pass-through configuration properties that are used when creating the Kafka producer and consumer.
-Specifically, all connector configuration properties that begin with the <code>database.history.producer.</code> prefix are used (without the prefix) when creating the Kafka producer that writes to the database history.
-All properties that begin with the prefix <code>database.history.consumer.</code> are used (without the prefix) when creating the Kafka consumer that reads the database history upon connector start-up.</p>
+<p>The MySQL connector also supports <a href="#mysql-pass-through-configuration-properties">pass-through configuration properties</a> that are used when creating the Kafka producer and consumer. Specifically, all connector configuration properties that begin with the <code>database.history.producer.</code> prefix are used (without the prefix) when creating the Kafka producer that writes to the database history. All properties that begin with the prefix <code>database.history.consumer.</code> are used (without the prefix) when creating the Kafka consumer that reads the database history upon connector start-up.</p>
 </div>
 <div class="paragraph">
 <p>For example, the following connector configuration properties can be used to secure connections to the Kafka broker:</p>
@@ -4143,28 +4124,6 @@ Tables are incrementally added to the Map during processing.
 Updates every 10,000 rows scanned and upon completing a table.</p>
 </div></div></td>
 </tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="connectors-strm-metric-maxqueuesizeinbytes_mysql"></a><a href="#connectors-snaps-metric-maxqueuesizeinbytes_mysql"><code>MaxQueueSizeInBytes</code></a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>long</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The maximum buffer of the queue in bytes. It will be enabled if <code>max.queue.size.in.bytes</code> is passed with a positive long value.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="connectors-strm-metric-currentqueuesizeinbytes_mysql"></a><a href="#connectors-snaps-metric-currentqueuesizeinbytes_mysql"><code>CurrentQueueSizeInBytes</code></a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>long</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The current data of records in the queue in bytes.</p>
-</div></div></td>
-</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -4324,28 +4283,6 @@ The values will incoporate any differences between the clocks on the machines wh
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Transaction identifier of the last processed transaction.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="connectors-strm-metric-maxqueuesizeinbytes_mysql"></a><a href="#connectors-strm-metric-maxqueuesizeinbytes_mysql"><code>MaxQueueSizeInBytes</code></a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>long</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The maximum buffer of the queue in bytes.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="connectors-strm-metric-currentqueuesizeinbytes_mysql"></a><a href="#connectors-strm-metric-currentqueuesizeinbytes_mysql"><code>CurrentQueueSizeInBytes</code></a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>long</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The current data of records in the queue in bytes.</p>
 </div></div></td>
 </tr>
 </tbody>
@@ -4630,7 +4567,7 @@ The values will incoporate any differences between the clocks on the machines wh
 
 <div id="toc-rightbar"></div>    <footer class="footer">
         <div class="wrapper">
-            <div class="copyright">Copyright &copy; 2020 Debezium Community</div>
+            <div class="copyright">Copyright &copy; 2021 Debezium Community</div>
         </div>
     </footer>
 </main>

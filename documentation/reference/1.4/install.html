@@ -4,7 +4,7 @@
         <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Installing Debezium :: Debezium Documentation</title>
-    <link rel="canonical" href="https://www.debezium.io/documentation/reference/install.html">
+    <link rel="canonical" href="https://www.debezium.io/documentation/reference/stable/install.html">
     <meta name="generator" content="Antora 2.3.4">
 <link rel="stylesheet" href="../../debezium-antora/css/site.css">
 <link rel="stylesheet" href="../../debezium-antora/css/debezium-antora.css">
@@ -46,7 +46,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="index.html">Debezium Documentation</a></h3>
+    <h3 class="title"><a href="index.html">Debezium Documentation - 1.6</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -163,9 +163,6 @@
     <a class="nav-link" href="integrations/cloudevents.html">CloudEvents</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="integrations/tracing.html">OpenTracing</a>
-  </li>
-  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="integrations/testcontainers.html">Integration Testing with Testcontainers</a>
   </li>
 </ul>
@@ -198,15 +195,21 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">Debezium Documentation</span>
+    <span class="title">Debezium Documentation - 1.6</span>
     <span class="version">1.4</span>
   </div>
   <ul class="components">
     <li class="component is-current">
-      <span class="title">Debezium Documentation</span>
+      <span class="title">Debezium Documentation - 1.6</span>
       <ul class="versions">
         <li class="version is-latest">
-          <a href="../index.html">master</a>
+          <a href="../stable/index.html">stable</a>
+        </li>
+        <li class="version">
+          <a href="../nightly/index.html">nightly</a>
+        </li>
+        <li class="version">
+          <a href="../1.7/index.html">1.7</a>
         </li>
         <li class="version is-current">
           <a href="index.html">1.4</a>
@@ -239,7 +242,7 @@
 <main role="main" class="main">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="../index.html" class="home-link"></a>
+  <a href="../stable/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Debezium Documentation</a></li>
@@ -253,7 +256,9 @@
         <button class="version-menu-toggle versions-menu-current" title="Show other versions of page">1.4</button>
         <!--<button class="version-menu-toggle versions-menu-select" title="Select other versions">Select</button>-->
         <div class="version-menu">
-                <a class="version" href="../install.html">master</a>
+                <a class="version" href="../stable/install.html">stable</a>
+                <a class="version" href="../nightly/install.html">nightly</a>
+                <a class="version" href="../1.7/install.html">1.7</a>
                 <a class="version is-current" href="install.html">1.4</a>
                 <a class="version" href="../1.3/install.html">1.3</a>
                 <a class="version" href="../1.2/install.html">1.2</a>
@@ -265,15 +270,15 @@
         |
     </div>
     </div>
-  <div class="edit-this-page"><a href="https://github.com/debezium/debezium/edit/1.4/documentation/modules/ROOT/pages/install.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/uidoyen/debezium/edit/1.4/documentation/modules/ROOT/pages/install.adoc">Edit this Page</a></div>
   </div>
 <div class="article-grid">
 <div class="article-cell1">
 <article class="doc">
-            <div class="version-banner version-banner-development">
-    You are viewing documentation for the current development version of Debezium.
+            <div class="version-banner version-banner-outdated">
+    You are viewing documentation for an outdated version of Debezium.
     <br/>
-            If you want to view the latest stable version of this page, please go <a href="../1.3/install.html">here</a>.
+            If you want to view the latest stable version of this page, please go <a href="../stable/install.html">here</a>.
             
 </div>            <h1 class="page">Installing Debezium</h1>
         <div id="preamble">
@@ -307,28 +312,28 @@ Then you&#8217;d specify the following in the worker config:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://repo1.maven.org/maven2/io/debezium/debezium-connector-mysql/1.4.0.Final/debezium-connector-mysql-1.4.0.Final-plugin.tar.gz">MySQL Connector plugin archive</a></p>
+<p><a href="https://repo1.maven.org/maven2/io/debezium/debezium-connector-mysql/1.4.0.Alpha1/debezium-connector-mysql-1.4.0.Alpha1-plugin.tar.gz">MySQL Connector plugin archive</a></p>
 </li>
 <li>
-<p><a href="https://repo1.maven.org/maven2/io/debezium/debezium-connector-postgres/1.4.0.Final/debezium-connector-postgres-1.4.0.Final-plugin.tar.gz">Postgres Connector plugin archive</a></p>
+<p><a href="https://repo1.maven.org/maven2/io/debezium/debezium-connector-postgres/1.4.0.Alpha1/debezium-connector-postgres-1.4.0.Alpha1-plugin.tar.gz">Postgres Connector plugin archive</a></p>
 </li>
 <li>
-<p><a href="https://repo1.maven.org/maven2/io/debezium/debezium-connector-mongodb/1.4.0.Final/debezium-connector-mongodb-1.4.0.Final-plugin.tar.gz">MongoDB Connector plugin archive</a></p>
+<p><a href="https://repo1.maven.org/maven2/io/debezium/debezium-connector-mongodb/1.4.0.Alpha1/debezium-connector-mongodb-1.4.0.Alpha1-plugin.tar.gz">MongoDB Connector plugin archive</a></p>
 </li>
 <li>
-<p><a href="https://repo1.maven.org/maven2/io/debezium/debezium-connector-sqlserver/1.4.0.Final/debezium-connector-sqlserver-1.4.0.Final-plugin.tar.gz">SQL Server Connector plugin archive</a></p>
+<p><a href="https://repo1.maven.org/maven2/io/debezium/debezium-connector-sqlserver/1.4.0.Alpha1/debezium-connector-sqlserver-1.4.0.Alpha1-plugin.tar.gz">SQL Server Connector plugin archive</a></p>
 </li>
 <li>
-<p><a href="https://repo1.maven.org/maven2/io/debezium/debezium-connector-oracle/1.4.0.Final/debezium-connector-oracle-1.4.0.Final-plugin.tar.gz">Oracle Connector plugin archive</a> (incubating)</p>
+<p><a href="https://repo1.maven.org/maven2/io/debezium/debezium-connector-oracle/1.4.0.Alpha1/debezium-connector-oracle-1.4.0.Alpha1-plugin.tar.gz">Oracle Connector plugin archive</a> (incubating)</p>
 </li>
 <li>
-<p><a href="https://repo1.maven.org/maven2/io/debezium/debezium-connector-db2/1.4.0.Final/debezium-connector-db2-1.4.0.Final-plugin.tar.gz">Db2 Connector plugin archive</a> (incubating)</p>
+<p><a href="https://repo1.maven.org/maven2/io/debezium/debezium-connector-db2/1.4.0.Alpha1/debezium-connector-db2-1.4.0.Alpha1-plugin.tar.gz">Db2 Connector plugin archive</a> (incubating)</p>
 </li>
 <li>
-<p><a href="https://repo1.maven.org/maven2/io/debezium/debezium-connector-cassandra/1.4.0.Final/debezium-connector-cassandra-1.4.0.Final-plugin.tar.gz">Cassandra plugin archive</a> (incubating)</p>
+<p><a href="https://repo1.maven.org/maven2/io/debezium/debezium-connector-cassandra/1.4.0.Alpha1/debezium-connector-cassandra-1.4.0.Alpha1-plugin.tar.gz">Cassandra plugin archive</a> (incubating)</p>
 </li>
 <li>
-<p><a href="https://repo1.maven.org/maven2/io/debezium/debezium-connector-vitess/1.4.0.Final/debezium-connector-vitess-1.4.0.Final-plugin.tar.gz">Vitess plugin archive</a> (incubating)</p>
+<p><a href="https://repo1.maven.org/maven2/io/debezium/debezium-connector-vitess/1.4.0.Alpha1/debezium-connector-vitess-1.4.0.Alpha1-plugin.tar.gz">Vitess plugin archive</a> (incubating)</p>
 </li>
 </ul>
 </div>
@@ -344,13 +349,13 @@ Alternatively, you can add further directories to the plugin path by specifying 
 When using the Docker image for Kafka Connect provided by Confluent, you can specify the <code>CONNECT_PLUGIN_PATH</code> environment variable to achieve the same.</p>
 </div>
 <div class="paragraph">
-<p>Note that Java 8 or later is required to run the Debezium connectors.</p>
+<p>Not that Java 8 or later is required to run the Debezium connectors.</p>
 </div>
 <div class="sect2">
 <h3 id="_consuming_snapshot_releases"><a class="anchor" href="#_consuming_snapshot_releases"></a>Consuming Snapshot Releases</h3>
 <div class="paragraph">
 <p>Debezium executes nightly builds and deployments into the Sonatype snapshot repository.
-If you want to try latest and fresh or verify a bug fix you are interested in, then use plugins from <a href="https://oss.sonatype.org/content/repositories/snapshots/io/debezium/">oss.sonatype.org</a> or view the <a href="../install.html" class="page">master branch</a> version of this document for direct links to each connector&#8217;s plugin artifact.
+If you want to try latest and fresh or verify a bug fix you are interested in, then use plugins from <a href="https://oss.sonatype.org/content/repositories/snapshots/io/debezium/">oss.sonatype.org</a> or view the <a href="#master@install.adoc" class="page unresolved">master branch</a> version of this document for direct links to each connector&#8217;s plugin artifact.
 The installation procedure is the same as for regular releases.</p>
 </div>
 </div>
@@ -458,7 +463,7 @@ e.g. when updating them</p>
 
 <div id="toc-rightbar"></div>    <footer class="footer">
         <div class="wrapper">
-            <div class="copyright">Copyright &copy; 2020 Debezium Community</div>
+            <div class="copyright">Copyright &copy; 2021 Debezium Community</div>
         </div>
     </footer>
 </main>

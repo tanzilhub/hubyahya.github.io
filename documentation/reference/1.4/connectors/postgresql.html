@@ -4,7 +4,7 @@
         <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Debezium connector for PostgreSQL :: Debezium Documentation</title>
-    <link rel="canonical" href="https://www.debezium.io/documentation/reference/connectors/postgresql.html">
+    <link rel="canonical" href="https://www.debezium.io/documentation/reference/stable/connectors/postgresql.html">
     <meta name="generator" content="Antora 2.3.4">
 <link rel="stylesheet" href="../../../debezium-antora/css/site.css">
 <link rel="stylesheet" href="../../../debezium-antora/css/debezium-antora.css">
@@ -46,7 +46,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">Debezium Documentation</a></h3>
+    <h3 class="title"><a href="../index.html">Debezium Documentation - 1.6</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -163,9 +163,6 @@
     <a class="nav-link" href="../integrations/cloudevents.html">CloudEvents</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../integrations/tracing.html">OpenTracing</a>
-  </li>
-  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../integrations/testcontainers.html">Integration Testing with Testcontainers</a>
   </li>
 </ul>
@@ -198,15 +195,21 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">Debezium Documentation</span>
+    <span class="title">Debezium Documentation - 1.6</span>
     <span class="version">1.4</span>
   </div>
   <ul class="components">
     <li class="component is-current">
-      <span class="title">Debezium Documentation</span>
+      <span class="title">Debezium Documentation - 1.6</span>
       <ul class="versions">
         <li class="version is-latest">
-          <a href="../../index.html">master</a>
+          <a href="../../stable/index.html">stable</a>
+        </li>
+        <li class="version">
+          <a href="../../nightly/index.html">nightly</a>
+        </li>
+        <li class="version">
+          <a href="../../1.7/index.html">1.7</a>
         </li>
         <li class="version is-current">
           <a href="../index.html">1.4</a>
@@ -239,7 +242,7 @@
 <main role="main" class="main">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="../../index.html" class="home-link"></a>
+  <a href="../../stable/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Debezium Documentation</a></li>
@@ -253,7 +256,9 @@
         <button class="version-menu-toggle versions-menu-current" title="Show other versions of page">1.4</button>
         <!--<button class="version-menu-toggle versions-menu-select" title="Select other versions">Select</button>-->
         <div class="version-menu">
-                <a class="version" href="../../connectors/postgresql.html">master</a>
+                <a class="version" href="../../stable/connectors/postgresql.html">stable</a>
+                <a class="version" href="../../nightly/connectors/postgresql.html">nightly</a>
+                <a class="version" href="../../1.7/connectors/postgresql.html">1.7</a>
                 <a class="version is-current" href="postgresql.html">1.4</a>
                 <a class="version" href="../../1.3/connectors/postgresql.html">1.3</a>
                 <a class="version" href="../../1.2/connectors/postgresql.html">1.2</a>
@@ -265,15 +270,15 @@
         |
     </div>
     </div>
-  <div class="edit-this-page"><a href="https://github.com/debezium/debezium/edit/1.4/documentation/modules/ROOT/pages/connectors/postgresql.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/uidoyen/debezium/edit/1.4/documentation/modules/ROOT/pages/connectors/postgresql.adoc">Edit this Page</a></div>
   </div>
 <div class="article-grid">
 <div class="article-cell1">
 <article class="doc">
-            <div class="version-banner version-banner-development">
-    You are viewing documentation for the current development version of Debezium.
+            <div class="version-banner version-banner-outdated">
+    You are viewing documentation for an outdated version of Debezium.
     <br/>
-            If you want to view the latest stable version of this page, please go <a href="../../1.3/connectors/postgresql.html">here</a>.
+            If you want to view the latest stable version of this page, please go <a href="../../stable/connectors/postgresql.html">here</a>.
             
 </div>            <h1 class="page">Debezium connector for PostgreSQL</h1>
         <div id="preamble">
@@ -662,13 +667,6 @@ public interface Snapshotter {
                 .append(" IN ACCESS SHARE MODE;")
                 .append(lineSeparator));
         return Optional.of(statements.toString());
-    }
-
-    /**
-     * Lifecycle hook called once the snapshot phase is finished.
-     */
-    default void snapshotCompleted() {
-        // no operation
     }
 }</code></pre>
 </div>
@@ -1379,7 +1377,7 @@ It is possible to override the table&#8217;s primary key by setting the <a href=
             "email": "annek@noanswer.org"
         },
         "source": { <i class="conum" data-value="8"></i><b>(8)</b>
-            "version": "1.4.0.Final",
+            "version": "1.4.0.Alpha1",
             "connector": "postgresql",
             "name": "PostgreSQL_server",
             "ts_ms": 1559033904863,
@@ -1567,7 +1565,7 @@ In the <code>source</code> object, <code>ts_ms</code> indicates the time that th
             "email": "annek@noanswer.org"
         },
         "source": { <i class="conum" data-value="3"></i><b>(3)</b>
-            "version": "1.4.0.Final",
+            "version": "1.4.0.Alpha1",
             "connector": "postgresql",
             "name": "PostgreSQL_server",
             "ts_ms": 1559033904863,
@@ -1712,7 +1710,7 @@ as a primary key change. For a primary key change, in place of sending an <code>
         },
         "after": null, <i class="conum" data-value="2"></i><b>(2)</b>
         "source": { <i class="conum" data-value="3"></i><b>(3)</b>
-            "version": "1.4.0.Final",
+            "version": "1.4.0.Alpha1",
             "connector": "postgresql",
             "name": "PostgreSQL_server",
             "ts_ms": 1559033904863,
@@ -3327,7 +3325,7 @@ host    replication     &lt;youruser&gt;  ::1/128                 trust   <i cla
 <p>The PostgreSQL connector can be used with a standalone PostgreSQL server or with a cluster of PostgreSQL servers.</p>
 </div>
 <div class="paragraph">
-<p>As mentioned <a href="#postgresql-limitations">in the beginning</a>, PostgreSQL (for all versions &#8656; 12) supports logical replication slots on only <code>primary</code> servers. This means that a replica in a PostgreSQL cluster cannot be configured for logical replication, and consequently that the Debezium PostgreSQL connector can connect and communicate with only the primary server. Should this server fail, the connector stops. When the cluster is repaired, if the original primary server is once again promoted to <code>primary</code>, you can restart the connector. However, if a different PostgreSQL server <em>with the plug-in and proper configuration</em> is promoted to <code>primary</code>, you must change the connector configuration to point to the new <code>primary</code> server and then you can restart the connector.</p>
+<p>As mentioned <a href="#postgresql-limitations">in the beginning</a>, PostgreSQL (for all versions &#8656; 12) supports logical replication slots on only <code>primary</code> servers. This means that a replica in a PostgreSQL cluster cannot be configured for logical replication, and consequently that the Debezium PostgreSQL connector can connect and communicate with only the primary server. Should this server fail, the connector stops. When the cluster is repaired, if the original primary server is once again promoted to <code>primary</code>, you can retart the connector. However, if a different PostgreSQL server <em>with the plug-in and proper configuration</em> is promoted to <code>primary</code>, you must change the connector configuration to point to the new <code>primary</code> server and then you can restart the connector.</p>
 </div>
 </div>
 <div class="sect2">
@@ -3395,7 +3393,7 @@ Again, regularly emitting events solves the problem.</p>
 <h2 id="postgresql-deployment"><a class="anchor" href="#postgresql-deployment"></a>Deployment</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>With <a href="https://zookeeper.apache.org">Zookeeper</a>, <a href="http://kafka.apache.org/">Kafka</a>, and <a href="https://kafka.apache.org/documentation.html#connect">Kafka Connect</a> installed, the remaining tasks to deploy a Debezium PostgreSQL connector are to download the <a href="https://repo1.maven.org/maven2/io/debezium/debezium-connector-postgres/1.4.0.Final/debezium-connector-postgres-1.4.0.Final-plugin.tar.gz">connector&#8217;s plug-in archive</a>, extract the JAR files into your Kafka Connect environment, and add the directory with the JAR files to <a href="https://kafka.apache.org/documentation/#connectconfigs">Kafka Connect&#8217;s <code>plugin.path</code></a>. You then need to restart your Kafka Connect process to pick up the new JAR files.</p>
+<p>With <a href="https://zookeeper.apache.org">Zookeeper</a>, <a href="http://kafka.apache.org/">Kafka</a>, and <a href="https://kafka.apache.org/documentation.html#connect">Kafka Connect</a> installed, the remaining tasks to deploy a Debezium PostgreSQL connector are to download the <a href="https://repo1.maven.org/maven2/io/debezium/debezium-connector-postgres/1.4.0.Alpha1/debezium-connector-postgres-1.4.0.Alpha1-plugin.tar.gz">connector&#8217;s plug-in archive</a>, extract the JAR files into your Kafka Connect environment, and add the directory with the JAR files to <a href="https://kafka.apache.org/documentation/#connectconfigs">Kafka Connect&#8217;s <code>plugin.path</code></a>. You then need to restart your Kafka Connect process to pick up the new JAR files.</p>
 </div>
 <div class="paragraph">
 <p>If you are working with immutable containers, see <a href="https://hub.docker.com/r/debezium/">Debezium&#8217;s Container images</a> for Zookeeper, Kafka, PostgreSQL and Kafka Connect with the PostgreSQL connector already installed and ready to run. You can also <a href="../operations/openshift.html" class="page">run Debezium on Kubernetes and OpenShift</a>.</p>
@@ -4153,17 +4151,6 @@ A possible use case for setting these properties is large, append-only tables. Y
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="postgresql-property-max-queue-size-in-bytes"></a><a href="#postgresql-property-max-queue-size-in-bytes"><code>max.queue.size.in.bytes</code></a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>0</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Long value for the maximum size in bytes of the blocking queue. The feature is disabled by default, it will be active if it&#8217;s set with a positive long value.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p><a id="postgresql-property-poll-interval-ms"></a><a href="#postgresql-property-poll-interval-ms"><code>poll.interval.ms</code></a></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
@@ -4582,28 +4569,6 @@ Tables are incrementally added to the Map during processing.
 Updates every 10,000 rows scanned and upon completing a table.</p>
 </div></div></td>
 </tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="connectors-strm-metric-maxqueuesizeinbytes_postgresql"></a><a href="#connectors-snaps-metric-maxqueuesizeinbytes_postgresql"><code>MaxQueueSizeInBytes</code></a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>long</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The maximum buffer of the queue in bytes. It will be enabled if <code>max.queue.size.in.bytes</code> is passed with a positive long value.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="connectors-strm-metric-currentqueuesizeinbytes_postgresql"></a><a href="#connectors-snaps-metric-currentqueuesizeinbytes_postgresql"><code>CurrentQueueSizeInBytes</code></a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>long</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The current data of records in the queue in bytes.</p>
-</div></div></td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -4759,28 +4724,6 @@ The values will incoporate any differences between the clocks on the machines wh
 <p>Transaction identifier of the last processed transaction.</p>
 </div></div></td>
 </tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="connectors-strm-metric-maxqueuesizeinbytes_postgresql"></a><a href="#connectors-strm-metric-maxqueuesizeinbytes_postgresql"><code>MaxQueueSizeInBytes</code></a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>long</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The maximum buffer of the queue in bytes.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="connectors-strm-metric-currentqueuesizeinbytes_postgresql"></a><a href="#connectors-strm-metric-currentqueuesizeinbytes_postgresql"><code>CurrentQueueSizeInBytes</code></a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>long</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The current data of records in the queue in bytes.</p>
-</div></div></td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -4916,7 +4859,7 @@ If the primary server goes down, a new primary must be promoted.</p>
 
 <div id="toc-rightbar"></div>    <footer class="footer">
         <div class="wrapper">
-            <div class="copyright">Copyright &copy; 2020 Debezium Community</div>
+            <div class="copyright">Copyright &copy; 2021 Debezium Community</div>
         </div>
     </footer>
 </main>

@@ -4,7 +4,7 @@
         <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Outbox Quarkus Extension :: Debezium Documentation</title>
-    <link rel="canonical" href="https://www.debezium.io/documentation/reference/integrations/outbox.html">
+    <link rel="canonical" href="https://www.debezium.io/documentation/reference/stable/integrations/outbox.html">
     <meta name="generator" content="Antora 2.3.4">
 <link rel="stylesheet" href="../../../debezium-antora/css/site.css">
 <link rel="stylesheet" href="../../../debezium-antora/css/debezium-antora.css">
@@ -46,7 +46,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">Debezium Documentation</a></h3>
+    <h3 class="title"><a href="../index.html">Debezium Documentation - 1.6</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -163,9 +163,6 @@
     <a class="nav-link" href="cloudevents.html">CloudEvents</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="tracing.html">OpenTracing</a>
-  </li>
-  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="testcontainers.html">Integration Testing with Testcontainers</a>
   </li>
 </ul>
@@ -198,15 +195,21 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">Debezium Documentation</span>
+    <span class="title">Debezium Documentation - 1.6</span>
     <span class="version">1.4</span>
   </div>
   <ul class="components">
     <li class="component is-current">
-      <span class="title">Debezium Documentation</span>
+      <span class="title">Debezium Documentation - 1.6</span>
       <ul class="versions">
         <li class="version is-latest">
-          <a href="../../index.html">master</a>
+          <a href="../../stable/index.html">stable</a>
+        </li>
+        <li class="version">
+          <a href="../../nightly/index.html">nightly</a>
+        </li>
+        <li class="version">
+          <a href="../../1.7/index.html">1.7</a>
         </li>
         <li class="version is-current">
           <a href="../index.html">1.4</a>
@@ -239,7 +242,7 @@
 <main role="main" class="main">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="../../index.html" class="home-link"></a>
+  <a href="../../stable/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Debezium Documentation</a></li>
@@ -253,7 +256,9 @@
         <button class="version-menu-toggle versions-menu-current" title="Show other versions of page">1.4</button>
         <!--<button class="version-menu-toggle versions-menu-select" title="Select other versions">Select</button>-->
         <div class="version-menu">
-                <a class="version" href="../../integrations/outbox.html">master</a>
+                <a class="version" href="../../stable/integrations/outbox.html">stable</a>
+                <a class="version" href="../../nightly/integrations/outbox.html">nightly</a>
+                <a class="version" href="../../1.7/integrations/outbox.html">1.7</a>
                 <a class="version is-current" href="outbox.html">1.4</a>
                 <a class="version" href="../../1.3/integrations/outbox.html">1.3</a>
                 <a class="version" href="../../1.2/integrations/outbox.html">1.2</a>
@@ -265,15 +270,15 @@
         |
     </div>
     </div>
-  <div class="edit-this-page"><a href="https://github.com/debezium/debezium/edit/1.4/documentation/modules/ROOT/pages/integrations/outbox.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/uidoyen/debezium/edit/1.4/documentation/modules/ROOT/pages/integrations/outbox.adoc">Edit this Page</a></div>
   </div>
 <div class="article-grid">
 <div class="article-cell1">
 <article class="doc">
-            <div class="version-banner version-banner-development">
-    You are viewing documentation for the current development version of Debezium.
+            <div class="version-banner version-banner-outdated">
+    You are viewing documentation for an outdated version of Debezium.
     <br/>
-            If you want to view the latest stable version of this page, please go <a href="../../1.3/integrations/outbox.html">here</a>.
+            If you want to view the latest stable version of this page, please go <a href="../../stable/integrations/outbox.html">here</a>.
             
 </div>            <h1 class="page">Outbox Quarkus Extension</h1>
         <div id="preamble">
@@ -288,7 +293,6 @@
 <ul class="sectlevel2">
 <li><a href="#_build_time_configuration_options">Build time configuration options</a></li>
 <li><a href="#_runtime_configuration_options">Runtime configuration options</a></li>
-<li><a href="#_distributed_tracing">Distributed tracing</a></li>
 </ul>
 </li>
 </ul>
@@ -338,7 +342,7 @@ As discussed in the blog post <a href="/blog/2019/02/19/reliable-microservices-d
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
   &lt;groupId&gt;io.debezium&lt;/groupId&gt;
   &lt;artfiactId&gt;debezium-quarkus-outbox&lt;/artfiactId&gt;
-  &lt;version&gt;1.4.0.Final&lt;/version&gt;
+  &lt;version&gt;1.4.0.Alpha1&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
@@ -732,35 +736,6 @@ e.g. <code>com.company.TheAttributeConverter</code></p>
 </div></div></td>
 <td class="tableblock halign-right valign-top"></td>
 </tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="dlist">
-<dl>
-<dt class="hdlist1"><code>quarkus.debezium-outbox.tracingspancontext.name</code></dt>
-<dd>
-<p>The column name for the tracing span context column.</p>
-</dd>
-</dl>
-</div></div></td>
-<td class="tableblock halign-right valign-top"><div class="content"><div class="paragraph">
-<p>string</p>
-</div></div></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock"><code>tracingspancontext</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="dlist">
-<dl>
-<dt class="hdlist1"><code>quarkus.debezium-outbox.tracingspancontext.column-definition</code></dt>
-<dd>
-<p>The database-specific column definition for the tracingspancontext.<br>
-e.g. <code>text not null</code></p>
-</dd>
-</dl>
-</div></div></td>
-<td class="tableblock halign-right valign-top"><div class="content"><div class="paragraph">
-<p>string</p>
-</div></div></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock"><code>VARCHAR(256)</code></p></td>
-</tr>
 </tbody>
 </table>
 <div class="admonitionblock note">
@@ -818,13 +793,6 @@ This is used as a way to keep the table&#8217;s underlying storage from growing 
 </tbody>
 </table>
 </div>
-<div class="sect2">
-<h3 id="_distributed_tracing"><a class="anchor" href="#_distributed_tracing"></a>Distributed tracing</h3>
-<div class="paragraph">
-<p>The extension has support for the distributed tracing.
-See <a href="/documentation/reference/integrations/tracing">tracing documentation</a> for more details.</p>
-</div>
-</div>
 </div>
 </div>
 </article>
@@ -835,7 +803,7 @@ See <a href="/documentation/reference/integrations/tracing">tracing documentatio
 
 <div id="toc-rightbar"></div>    <footer class="footer">
         <div class="wrapper">
-            <div class="copyright">Copyright &copy; 2020 Debezium Community</div>
+            <div class="copyright">Copyright &copy; 2021 Debezium Community</div>
         </div>
     </footer>
 </main>

@@ -4,7 +4,7 @@
         <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Debezium connector for Vitess :: Debezium Documentation</title>
-    <link rel="canonical" href="https://www.debezium.io/documentation/reference/connectors/vitess.html">
+    <link rel="canonical" href="https://www.debezium.io/documentation/reference/stable/connectors/vitess.html">
     <meta name="generator" content="Antora 2.3.4">
 <link rel="stylesheet" href="../../../debezium-antora/css/site.css">
 <link rel="stylesheet" href="../../../debezium-antora/css/debezium-antora.css">
@@ -46,7 +46,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">Debezium Documentation</a></h3>
+    <h3 class="title"><a href="../index.html">Debezium Documentation - 1.6</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -163,9 +163,6 @@
     <a class="nav-link" href="../integrations/cloudevents.html">CloudEvents</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../integrations/tracing.html">OpenTracing</a>
-  </li>
-  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../integrations/testcontainers.html">Integration Testing with Testcontainers</a>
   </li>
 </ul>
@@ -198,15 +195,21 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">Debezium Documentation</span>
+    <span class="title">Debezium Documentation - 1.6</span>
     <span class="version">1.4</span>
   </div>
   <ul class="components">
     <li class="component is-current">
-      <span class="title">Debezium Documentation</span>
+      <span class="title">Debezium Documentation - 1.6</span>
       <ul class="versions">
         <li class="version is-latest">
-          <a href="../../index.html">master</a>
+          <a href="../../stable/index.html">stable</a>
+        </li>
+        <li class="version">
+          <a href="../../nightly/index.html">nightly</a>
+        </li>
+        <li class="version">
+          <a href="../../1.7/index.html">1.7</a>
         </li>
         <li class="version is-current">
           <a href="../index.html">1.4</a>
@@ -239,7 +242,7 @@
 <main role="main" class="main">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="../../index.html" class="home-link"></a>
+  <a href="../../stable/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Debezium Documentation</a></li>
@@ -253,7 +256,9 @@
         <button class="version-menu-toggle versions-menu-current" title="Show other versions of page">1.4</button>
         <!--<button class="version-menu-toggle versions-menu-select" title="Select other versions">Select</button>-->
         <div class="version-menu">
-                <a class="version" href="../../connectors/vitess.html">master</a>
+                <a class="version" href="../../stable/connectors/vitess.html">stable</a>
+                <a class="version" href="../../nightly/connectors/vitess.html">nightly</a>
+                <a class="version" href="../../1.7/connectors/vitess.html">1.7</a>
                 <a class="version is-current" href="vitess.html">1.4</a>
                 <a class="version is-missing" href="../../1.3/index.html">1.3</a>
                 <a class="version is-missing" href="../../1.2/index.html">1.2</a>
@@ -265,15 +270,15 @@
         |
     </div>
     </div>
-  <div class="edit-this-page"><a href="https://github.com/debezium/debezium/edit/1.4/documentation/modules/ROOT/pages/connectors/vitess.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/uidoyen/debezium/edit/1.4/documentation/modules/ROOT/pages/connectors/vitess.adoc">Edit this Page</a></div>
   </div>
 <div class="article-grid">
 <div class="article-cell1">
 <article class="doc">
-            <div class="version-banner version-banner-development">
-    You are viewing documentation for the current development version of Debezium.
+            <div class="version-banner version-banner-outdated">
+    You are viewing documentation for an outdated version of Debezium.
     <br/>
-            If you want to view the latest stable version of this page, please go <a href="../../1.3/index.html">here</a>.
+            If you want to view the latest stable version of this page, please go <a href="../../stable/connectors/vitess.html">here</a>.
             
 </div>            <h1 class="page">Debezium connector for Vitess</h1>
         <div id="preamble">
@@ -320,7 +325,6 @@
 <ul class="sectlevel2">
 <li><a href="#vitess-connector-configuration-and-startup-errors">Configuration and startup errors</a></li>
 <li><a href="#vitess-becomes-unavailable">Vitess becomes unavailable</a></li>
-<li><a href="#invalid-column-name-error">Invalid column name error</a></li>
 <li><a href="#vitess-kafka-connect-process-stops-gracefully">Kafka Connect process stops gracefully</a></li>
 <li><a href="#vitess-kafka-connect-process-crashes">Kafka Connect process crashes</a></li>
 <li><a href="#vitess-kafka-becomes-unavailable">Kafka becomes unavailable</a></li>
@@ -330,7 +334,7 @@
 </ul>
 </div>
 <div class="paragraph">
-<p>Debezium&#8217;s Vitess connector captures row-level changes in the shards of a Vitess <a href="https://vitess.io/docs/concepts/keyspace/">keyspace</a>. Vitess version 8 is supported.</p>
+<p>Debezium&#8217;s Vitess connector captures row-level changes in the shards of a Vitess <a href="https://vitess.io/docs/concepts/keyspace/">keyspace</a>. Vitess versions 7 and 8 are supported.</p>
 </div>
 <div class="paragraph">
 <p>The connector does not support snapshot feature at the moment. The first time it connects to a Vitess cluster, it starts from the current VGTID location of the keyspace and continuously captures row-level changes that insert, update, and delete database content and that were committed to a Vitess keyspace. The connector generates data change event records and streams them to Kafka topics. For each table, the default behavior is that the connector streams all generated events to a separate Kafka topic for that table. Applications and services consume data change event records from that topic.</p>
@@ -475,7 +479,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>schema</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The first <code>schema</code> field is part of the event key. It specifies a Kafka Connect schema that describes what is in the event key&#8217;s <code>payload</code> portion. In other words, the first <code>schema</code> field describes the structure of the primary key, or the first single-column unique key if the table does not have a primary key, for the table that was changed. Multi-column unique key is not supported.<br>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The first <code>schema</code> field is part of the event key. It specifies a Kafka Connect schema that describes what is in the event key&#8217;s <code>payload</code> portion. In other words, the first <code>schema</code> field describes the structure of the primary key, for the table that was changed.<br>
 <br>
 It is possible to override the table&#8217;s primary key by setting the <a href="#vitess-property-message-key-columns"><code>message.key.columns</code> connector configuration property</a>. In this case, the first schema field describes the structure of the key identified by that property.</p></td>
 </tr>
@@ -538,7 +542,7 @@ It is possible to override the table&#8217;s primary key by setting the <a href=
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The connector doesn&#8217;t allow to name columns with the <code>@</code> prefix at the moment. For example, <code>age</code> is a valid column name, and <code>@age</code> is not. The reason is that Vitess vstreamer has a bug that would send events with anonymized column names (e.g. column name <code>age</code> is anonymized to <code>@1</code>). There&#8217;s no easy way to differentiate between a legit column name with the <code>@</code> prefix, and the Vitess bug. See more discussion <a href="https://vitess.slack.com/archives/C0PQY0PTK/p1606817216038500">here</a>.</p>
+<p>The key&#8217;s <code>payload</code> will always be <code>null</code> at the moment, unless you override the table&#8217;s primary key by setting the <a href="#vitess-property-message-key-columns"><code>message.key.columns</code> connector configuration property</a>. We will soon add support for extracting the primary key from Vitess change event, please track the <a href="https://issues.redhat.com/browse/DBZ-2578">ticket</a>.</p>
 </div>
 </td>
 </tr>
@@ -845,7 +849,7 @@ It is possible to override the table&#8217;s primary key by setting the <a href=
             "email": "annek@noanswer.org"
         },
         "source": { <i class="conum" data-value="8"></i><b>(8)</b>
-            "version": "1.4.0.Final",
+            "version": "1.4.0.Alpha1",
             "connector": "vitess",
             "name": "my_sharded_connector",
             "ts_ms": 1559033904863,
@@ -1010,7 +1014,7 @@ In the <code>source</code> object, <code>ts_ms</code> indicates the time that th
             "email": "annek@noanswer.org"
         },
         "source": { <i class="conum" data-value="3"></i><b>(3)</b>
-            "version": "1.4.0.Final",
+            "version": "1.4.0.Alpha1",
             "connector": "vitess",
             "name": "my_sharded_connector",
             "ts_ms": 1559033904863,
@@ -1131,7 +1135,7 @@ In the <code>source</code> object, <code>ts_ms</code> indicates the time that th
         },
         "after": null, <i class="conum" data-value="2"></i><b>(2)</b>
         "source": { <i class="conum" data-value="3"></i><b>(3)</b>
-            "version": "1.4.0.Final",
+            "version": "1.4.0.Alpha1",
             "connector": "vitess",
             "name": "my_sharded_connector",
             "ts_ms": 1559033904863,
@@ -1668,7 +1672,7 @@ GEOMETRYCOLLECTION</code></p>
 <h2 id="vitess-deploying-a-connector"><a class="anchor" href="#vitess-deploying-a-connector"></a>Deployment</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>With <a href="https://zookeeper.apache.org">Zookeeper</a>, <a href="http://kafka.apache.org/">Kafka</a>, and <a href="https://kafka.apache.org/documentation.html#connect">Kafka Connect</a> installed, the remaining tasks to deploy a Debezium Vitess connector are to download the <a href="https://repo1.maven.org/maven2/io/debezium/debezium-connector-vitess/1.4.0.Final/debezium-connector-vitess-1.4.0.Final-plugin.tar.gz">connector&#8217;s plug-in archive</a>, extract the JAR files into your Kafka Connect environment, and add the directory with the JAR files to <a href="https://kafka.apache.org/documentation/#connectconfigs">Kafka Connect&#8217;s <code>plugin.path</code></a>. You then need to restart your Kafka Connect process to pick up the new JAR files.</p>
+<p>With <a href="https://zookeeper.apache.org">Zookeeper</a>, <a href="http://kafka.apache.org/">Kafka</a>, and <a href="https://kafka.apache.org/documentation.html#connect">Kafka Connect</a> installed, the remaining tasks to deploy a Debezium Vitess connector are to download the <a href="https://repo1.maven.org/maven2/io/debezium/debezium-connector-vitess/1.4.0.Alpha1/debezium-connector-vitess-1.4.0.Alpha1-plugin.tar.gz">connector&#8217;s plug-in archive</a>, extract the JAR files into your Kafka Connect environment, and add the directory with the JAR files to <a href="https://kafka.apache.org/documentation/#connectconfigs">Kafka Connect&#8217;s <code>plugin.path</code></a>. You then need to restart your Kafka Connect process to pick up the new JAR files.</p>
 </div>
 <div class="paragraph">
 <p>If you are working with immutable containers, see <a href="https://hub.docker.com/r/debezium/">Debezium&#8217;s Container images</a> for Zookeeper, Kafka and Kafka Connect with the Vitess connector already installed and ready to run. You can also <a href="../operations/openshift.html" class="page">run Debezium on Kubernetes and OpenShift</a>.</p>
@@ -1689,16 +1693,12 @@ GEOMETRYCOLLECTION</code></p>
     "connector.class": "io.debezium.connector.vitess.VitessConnector", <i class="conum" data-value="2"></i><b>(2)</b>
     "database.hostname": "192.168.99.100", <i class="conum" data-value="3"></i><b>(3)</b>
     "database.port": "15991", <i class="conum" data-value="4"></i><b>(4)</b>
-    "database.user": "vitess", <i class="conum" data-value="5"></i><b>(5)</b>
-    "database.password": "vitess_password", <i class="conum" data-value="6"></i><b>(6)</b>
-    "vitess.keyspace": "commerce", <i class="conum" data-value="7"></i><b>(7)</b>
-    "vitess.tablet.type": "MASTER", <i class="conum" data-value="8"></i><b>(8)</b>
-    "vitess.vtctld.host": "192.168.99.101", <i class="conum" data-value="9"></i><b>(9)</b>
-    "vitess.vtctld.port": "15999", <i class="conum" data-value="10"></i><b>(10)</b>
-    "vitess.vtctld.user": "vitess", <i class="conum" data-value="11"></i><b>(11)</b>
-    "vitess.vtctld.password": "vitess_password", <i class="conum" data-value="12"></i><b>(12)</b>
-    "database.server.name": "fullfillment", <i class="conum" data-value="13"></i><b>(13)</b>
-    "tasks.max": 1 <i class="conum" data-value="14"></i><b>(14)</b>
+    "vitess.keyspace": "commerce", <i class="conum" data-value="5"></i><b>(5)</b>
+    "vitess.tablet.type": "MASTER", <i class="conum" data-value="6"></i><b>(6)</b>
+    "vitess.vtctld.host": "192.168.99.101", <i class="conum" data-value="7"></i><b>(7)</b>
+    "vitess.vtctld.port": "15999", <i class="conum" data-value="8"></i><b>(8)</b>
+    "database.server.name": "fullfillment", <i class="conum" data-value="9"></i><b>(9)</b>
+    "tasks.max": 1 <i class="conum" data-value="10"></i><b>(10)</b>
   }
 }</code></pre>
 </div>
@@ -1723,42 +1723,26 @@ GEOMETRYCOLLECTION</code></p>
 </tr>
 <tr>
 <td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>The username of the Vitess database server (VTGate gRPC).</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="6"></i><b>6</b></td>
-<td>The password of the Vitess database server (VTGate gRPC).</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="7"></i><b>7</b></td>
 <td>The name of the keyspce (a.k.a database). Because no shard is specified, it reads change events from all shards in the keyspace.</td>
 </tr>
 <tr>
-<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
 <td>The type of MySQL instance (MASTER OR REPLICA) to read change events from.</td>
 </tr>
 <tr>
-<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
 <td>The address of the VTCtld server.</td>
 </tr>
 <tr>
-<td><i class="conum" data-value="10"></i><b>10</b></td>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
 <td>The port of the VTCtld server.</td>
 </tr>
 <tr>
-<td><i class="conum" data-value="11"></i><b>11</b></td>
-<td>The username of the VTCtld server (VTCtld gRPC).</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="12"></i><b>12</b></td>
-<td>The password of the VTCtld database server (VTCtld gRPC).</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="13"></i><b>13</b></td>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
 <td>The logical name of the Vitess cluster, which forms a namespace and is used in all the names of the Kafka topics to which the connector writes, the Kafka Connect schema names, and the namespaces of the corresponding Avro schema when the Avro converter is used.</td>
 </tr>
 <tr>
-<td><i class="conum" data-value="14"></i><b>14</b></td>
+<td><i class="conum" data-value="10"></i><b>10</b></td>
 <td>Only one task should operate at any one time.</td>
 </tr>
 </table>
@@ -1928,28 +1912,6 @@ The values will incoporate any differences between the clocks on the machines wh
 <p>The number of processed transactions that were committed.</p>
 </div></div></td>
 </tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="connectors-strm-metric-maxqueuesizeinbytes"></a><a href="#connectors-strm-metric-maxqueuesizeinbytes"><code>MaxQueueSizeInBytes</code></a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>long</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The maximum buffer of the queue in bytes used to pass events between the streamer and the main Kafka Connect loop.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="connectors-strm-metric-currentqueuesizeinbytes"></a><a href="#connectors-strm-metric-currentqueuesizeinbytes"><code>CurrentQueueSizeInBytes</code></a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>long</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The current buffer of the queue in bytes used to pass events between the streamer and the main Kafka Connect loop.</p>
-</div></div></td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -2061,28 +2023,6 @@ The values will incoporate any differences between the clocks on the machines wh
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="vitess-property-database-user"></a><a href="#vitess-property-database-user"><code>vitess.database.user</code></a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><em>n/a</em></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>An optional username of the Vitess database server (VTGate). If not configured, unauthenticated VTGate gRPC is used.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="vitess-property-database-password"></a><a href="#vitess-property-database-password"><code>vitess.database.password</code></a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><em>n/a</em></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>An optional password of the Vitess database server (VTGate). If not configured, unauthenticated VTGate gRPC is used.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p><a id="vitess-property-vtctld-host"></a><a href="#vitess-property-vtctld-host"><code>vitess.vtctld.host</code></a></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"></div></td>
@@ -2099,28 +2039,6 @@ The values will incoporate any differences between the clocks on the machines wh
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Integer port number of the VTCtld server.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="vitess-property-vtctld-user"></a><a href="#vitess-property-vtctld-user"><code>vitess.vtctld.user</code></a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><em>n/a</em></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>An optional username of the VTCtld server. If not configured, unauthenticated VTCtld gRPC is used.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="vitess-property-vtctld-password"></a><a href="#vitess-property-vtctld-password"><code>vitess.vtctld.password</code></a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><em>n/a</em></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>An optional password of the VTCtld server. If not configured, unauthenticated VTCtld gRPC is used.</p>
 </div></div></td>
 </tr>
 <tr>
@@ -2284,17 +2202,6 @@ If <code>table_a</code> has a an <code>id</code> column, and <code>regex_1</code
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="vitess-property-max-queue-size-in-bytes"></a><a href="#vitess-property-max-queue-size-in-bytes"><code>max.queue.size.in.bytes</code></a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>0</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Long value for the maximum size in bytes of the blocking queue. The feature is disabled by default, it will be active if it&#8217;s set with a positive long value.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p><a id="vitess-property-poll-interval-ms"></a><a href="#vitess-property-poll-interval-ms"><code>poll.interval.ms</code></a></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
@@ -2302,18 +2209,6 @@ If <code>table_a</code> has a an <code>id</code> column, and <code>regex_1</code
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Positive integer value that specifies the number of milliseconds the connector should wait for new change events to appear before it starts processing a batch of events. Defaults to 1000 milliseconds, or 1 second.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="vitess-property-sanitize-field-names"></a><a href="#vitess-property-sanitize-field-names"><code>sanitize.field.names</code></a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>true</code> if connector configuration sets the <code>key.converter</code> or <code>value.converter</code> property to the Avro converter.<br>
-<code>false</code> if not.</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Indicates whether field names are sanitized to adhere to <a href="../configuration/avro.html#avro-naming" class="page">Avro naming requirements</a>.</p>
 </div></div></td>
 </tr>
 </tbody>
@@ -2369,12 +2264,6 @@ If <code>table_a</code> has a an <code>id</code> column, and <code>regex_1</code
 </div>
 </div>
 <div class="sect2">
-<h3 id="invalid-column-name-error"><a class="anchor" href="#invalid-column-name-error"></a>Invalid column name error</h3>
-<div class="paragraph">
-<p>This error happens very rarely. If you receive an error with the message <code>Illegal prefix '@' for column: x, from schema: y, table: z</code>, and your table doesn&#8217;t have such a column, it is a Vitess vstream <a href="https://vitess.slack.com/archives/C0PQY0PTK/p1606817216038500">bug</a> that is caused by column renaming or column type change. It is a transient error. You can restart the connector after a small backoff and it should resolve automatically.</p>
-</div>
-</div>
-<div class="sect2">
 <h3 id="vitess-kafka-connect-process-stops-gracefully"><a class="anchor" href="#vitess-kafka-connect-process-stops-gracefully"></a>Kafka Connect process stops gracefully</h3>
 <div class="paragraph">
 <p>Suppose that Kafka Connect is being run in distributed mode and a Kafka Connect process is stopped gracefully. Prior to shutting down that process, Kafka Connect migrates the process&#8217;s connector tasks to another Kafka Connect process in that group. The new connector tasks start processing exactly where the prior tasks stopped. There is a short delay in processing while the connector tasks are stopped gracefully and restarted on the new processes.</p>
@@ -2417,7 +2306,7 @@ If <code>table_a</code> has a an <code>id</code> column, and <code>regex_1</code
 
 <div id="toc-rightbar"></div>    <footer class="footer">
         <div class="wrapper">
-            <div class="copyright">Copyright &copy; 2020 Debezium Community</div>
+            <div class="copyright">Copyright &copy; 2021 Debezium Community</div>
         </div>
     </footer>
 </main>

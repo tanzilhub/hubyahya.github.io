@@ -4,7 +4,7 @@
         <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Outbox Event Router :: Debezium Documentation</title>
-    <link rel="canonical" href="https://www.debezium.io/documentation/reference/configuration/outbox-event-router.html">
+    <link rel="canonical" href="https://www.debezium.io/documentation/reference/1.4/configuration/outbox-event-router.html">
     <meta name="generator" content="Antora 2.3.4">
 <link rel="stylesheet" href="../../../debezium-antora/css/site.css">
 <link rel="stylesheet" href="../../../debezium-antora/css/debezium-antora.css">
@@ -46,7 +46,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">Debezium Documentation</a></h3>
+    <h3 class="title"><a href="../index.html">Debezium Documentation - 1.6</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -163,9 +163,6 @@
     <a class="nav-link" href="../integrations/cloudevents.html">CloudEvents</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../integrations/tracing.html">OpenTracing</a>
-  </li>
-  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../integrations/testcontainers.html">Integration Testing with Testcontainers</a>
   </li>
 </ul>
@@ -198,15 +195,21 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">Debezium Documentation</span>
+    <span class="title">Debezium Documentation - 1.6</span>
     <span class="version">1.4</span>
   </div>
   <ul class="components">
     <li class="component is-current">
-      <span class="title">Debezium Documentation</span>
+      <span class="title">Debezium Documentation - 1.6</span>
       <ul class="versions">
         <li class="version is-latest">
-          <a href="../../index.html">master</a>
+          <a href="../../stable/index.html">stable</a>
+        </li>
+        <li class="version">
+          <a href="../../nightly/index.html">nightly</a>
+        </li>
+        <li class="version">
+          <a href="../../1.7/index.html">1.7</a>
         </li>
         <li class="version is-current">
           <a href="../index.html">1.4</a>
@@ -239,7 +242,7 @@
 <main role="main" class="main">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="../../index.html" class="home-link"></a>
+  <a href="../../stable/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Debezium Documentation</a></li>
@@ -253,7 +256,9 @@
         <button class="version-menu-toggle versions-menu-current" title="Show other versions of page">1.4</button>
         <!--<button class="version-menu-toggle versions-menu-select" title="Select other versions">Select</button>-->
         <div class="version-menu">
-                <a class="version" href="../../configuration/outbox-event-router.html">master</a>
+                <a class="version is-missing" href="../../stable/index.html">stable</a>
+                <a class="version is-missing" href="../../nightly/index.html">nightly</a>
+                <a class="version is-missing" href="../../1.7/index.html">1.7</a>
                 <a class="version is-current" href="outbox-event-router.html">1.4</a>
                 <a class="version" href="../../1.3/configuration/outbox-event-router.html">1.3</a>
                 <a class="version" href="../../1.2/configuration/outbox-event-router.html">1.2</a>
@@ -265,15 +270,15 @@
         |
     </div>
     </div>
-  <div class="edit-this-page"><a href="https://github.com/debezium/debezium/edit/1.4/documentation/modules/ROOT/pages/configuration/outbox-event-router.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/uidoyen/debezium/edit/1.4/documentation/modules/ROOT/pages/configuration/outbox-event-router.adoc">Edit this Page</a></div>
   </div>
 <div class="article-grid">
 <div class="article-cell1">
 <article class="doc">
-            <div class="version-banner version-banner-development">
-    You are viewing documentation for the current development version of Debezium.
+            <div class="version-banner version-banner-outdated">
+    You are viewing documentation for an outdated version of Debezium.
     <br/>
-            If you want to view the latest stable version of this page, please go <a href="../../1.3/configuration/outbox-event-router.html">here</a>.
+            If you want to view the latest stable version of this page, please go <a href="../../stable/index.html">here</a>.
             
 </div>            <h1 class="page">Outbox Event Router</h1>
         <div id="preamble">
@@ -287,7 +292,6 @@
 <li><a href="#avro-as-payload-format">Using Avro as the payload format</a></li>
 <li><a href="#emitting-messages-with-additional-fields">Emitting messages with additional fields</a></li>
 <li><a href="#outbox-event-router-configuration-options">Configuration options</a></li>
-<li><a href="#_distributed_tracing">Distributed tracing</a></li>
 </ul>
 </div>
 <div class="paragraph">
@@ -814,59 +818,8 @@ To change the topic name, you can:<br></p>
 <p>All changes in an outbox table are expected to be <code>INSERT</code> operations. That is, an outbox table functions as a queue; updates to records in an outbox table are not allowed. The SMT automatically filters out <code>DELETE</code> operations on an outbox table.</p>
 </div></div></td>
 </tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="outbox-event-router-property-tracing-span-context-field"></a><a href="#outbox-event-router-property-tracing-span-context-field"><code>tracing.span.context.field</code></a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>tracingspancontext</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Tracing</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The name of the field containing tracing span context.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="outbox-event-router-property-tracing-operation-name"></a><a href="#outbox-event-router-property-tracing-operation-name"><code>tracing.operation.name</code></a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>debezium-read</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Tracing</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The operation name representing the Debezium processing span.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><a id="outbox-event-router-property-tracing-with-context-field-only"></a><a href="#outbox-event-router-property-tracing-with-context-field-only"><code>tracing.with.context.field.only</code></a></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>false</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Tracing</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>When <code>true</code> only events that have serialized context field should be traced.</p>
-</div></div></td>
-</tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_distributed_tracing"><a class="anchor" href="#_distributed_tracing"></a>Distributed tracing</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The extension has support for the distributed tracing.
-See <a href="/documentation/reference/integrations/tracing">tracing documentation</a> for more details.</p>
-</div>
 </div>
 </div>
 </article>
@@ -877,7 +830,7 @@ See <a href="/documentation/reference/integrations/tracing">tracing documentatio
 
 <div id="toc-rightbar"></div>    <footer class="footer">
         <div class="wrapper">
-            <div class="copyright">Copyright &copy; 2020 Debezium Community</div>
+            <div class="copyright">Copyright &copy; 2021 Debezium Community</div>
         </div>
     </footer>
 </main>
