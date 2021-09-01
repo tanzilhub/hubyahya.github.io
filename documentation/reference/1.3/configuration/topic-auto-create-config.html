@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Customizing Topic Auto-Creation :: Debezium Documentation</title>
     <link rel="canonical" href="https://www.debezium.io/documentation/reference/stable/configuration/topic-auto-create-config.html">
-    <meta name="generator" content="Antora 2.3.4">
+    <meta name="generator" content="Antora 3.0.0-alpha.9">
 <link rel="stylesheet" href="../../../debezium-antora/css/site.css">
 <link rel="stylesheet" href="../../../debezium-antora/css/debezium-antora.css">
 <link rel="stylesheet" href="../../../debezium-antora/css/highlightjs-dark.css">
@@ -199,7 +199,7 @@
     <li class="component is-current">
       <span class="title">Debezium Documentation 1.6</span>
       <ul class="versions">
-        <li class="version is-latest">
+        <li class="version">
           <a href="../../stable/index.html">1.6</a>
         </li>
         <li class="version">
@@ -314,7 +314,7 @@ upfront either automated in a custom deployment process or manually until Kafka 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code>topic.creation.enable = true</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-none hljs">topic.creation.enable = true</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -378,7 +378,7 @@ Debezium installation guide on generic topic configuration considerations.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code>{
+<pre class="highlightjs highlight nowrap"><code class="language-none hljs">{
     ...
 
     "topic.creation.default.replication.factor": 3,  <i class="conum" data-value="1"></i><b>(1)</b>
@@ -463,7 +463,7 @@ the group name. This will look like that in your connector JSON:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code>{
+<pre class="highlightjs highlight nowrap"><code class="language-none hljs">{
     ...
 
     <i class="conum" data-value="1"></i><b>(1)</b>
@@ -546,7 +546,7 @@ the <code>topic.creation.groups</code> property:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code>{
+<pre class="highlightjs highlight nowrap"><code class="language-none hljs">{
     ...
 
     "topic.creation.groups": "inventory,applicationlogs",
@@ -560,7 +560,7 @@ the <code>topic.creation.groups</code> property:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code>{
+<pre class="highlightjs highlight nowrap"><code class="language-none hljs">{
     ...
 
     "topic.creation.default.replication.factor": 3,
