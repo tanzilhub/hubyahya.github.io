@@ -5,9 +5,9 @@ site:
   start_page: reference::index.adoc
 
 urls:
-  latest_version_segment: stable
+  latest_version_segment_strategy: redirect:to
   latest_prerelease_version_segment: dev
-  latest_version_segment_strategy: redirect:from
+  latest_version_segment: stable
 
 content:
   sources:
