@@ -22,7 +22,7 @@ jobs:
       with:
         surge_token: ${{ secrets.SURGE_TOKEN }}
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        dist: /site/_site
+        dist: _site/
         failOnError: 'true'
         build: |
           echo Deploying to surge.sh
