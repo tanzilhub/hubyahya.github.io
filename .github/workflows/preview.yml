@@ -3,7 +3,7 @@ name: Preview
 on:
   pull_request_target:
     types: [opened, synchronize, reopened]
-    
+
 jobs:
   preview:
     runs-on: ubuntu-20.04
@@ -14,7 +14,7 @@ jobs:
     #   run: export PRNUMBER=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH") && echo 'baseURL = "https://gunnarmorling-morling-dev-preview-pr-'"$PRNUMBER"'.surge.sh/"' >> config/staging/config.toml
 
     - name: Build
-      run: docker run --privileged -i --rm -p 4000:4000 -e LC_ALL=C.UTF-8 -e LANG=C.UTF-8 -v $(pwd):/site debezium/website-builder bash -c "rake clean build[staging]"
+      run: docker run --privileged -i --rm -p 4000:4000 -e LC_ALL=C.UTF-8 -e LANG=C.UTF-8 -v $(pwd):/site uidoyen/antora-website-builder bash -c "rake clean build[staging]"
 
     - name: Preview
       uses: afc163/surge-preview@v1
