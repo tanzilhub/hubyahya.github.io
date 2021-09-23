@@ -2,25 +2,37 @@ name: Receive PR
 
 # read-only repo token
 # no access to secrets
-on:
+on: 
   pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
-  build:
+  build-preview:
     runs-on: ubuntu-latest
 
-    steps:        
+    steps:
       - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
 
-      # imitation of a build process
-      - name: Build
-        run: docker run --privileged -i --rm -p 4000:4000 -e LC_ALL=C.UTF-8 -e LANG=C.UTF-8 -v $(pwd):/site uidoyen/antora-website-builder bash -c "rake clean build[staging]"
+      - name: build
+        run: |
+          yarn
+          NODE_OPTIONS='--max-old-space-size=4096' yarn run build
+      - name: upload dist artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: public/
+          retention-days: 5
 
       - name: Save PR number
-        run: |
-          mkdir -p ./pr
-          echo ${{ github.event.number }} > ./pr/NR
-      - uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        run: echo ${{ github.event.number }} > ./pr-id.txt
+
+      - name: Upload PR number
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
         with:
           name: pr
-          path: pr/
+          path: ./pr-id.txt
