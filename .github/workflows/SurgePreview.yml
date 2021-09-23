@@ -7,45 +7,79 @@ on:
     workflows: ["Receive PR"]
     types:
       - completed
-
+      
 jobs:
-  upload:
+  success:
     runs-on: ubuntu-latest
-    if: >
-      ${{ github.event.workflow_run.event == 'pull_request' &&
-      github.event.workflow_run.conclusion == 'success' }}
+    if: github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success'
     steps:
-      - name: 'Download artifact'
-        uses: actions/github-script@v3.1.0
+      - name: download pr artifact
+        uses: dawidd6/action-download-artifact@v2
         with:
-          script: |
-            var artifacts = await github.actions.listWorkflowRunArtifacts({
-               owner: context.repo.owner,
-               repo: context.repo.repo,
-               run_id: ${{github.event.workflow_run.id }},
-            });
-            var matchArtifact = artifacts.data.artifacts.filter((artifact) => {
-              return artifact.name == "pr"
-            })[0];
-            var download = await github.actions.downloadArtifact({
-               owner: context.repo.owner,
-               repo: context.repo.repo,
-               artifact_id: matchArtifact.id,
-               archive_format: 'zip',
-            });
-            var fs = require('fs');
-            fs.writeFileSync('${{github.workspace}}/pr.zip', Buffer.from(download.data));
-      - run: unzip pr.zip
+          workflow: ${{ github.event.workflow_run.workflow_id }}
+          name: pr
 
-      - name: Preview
-        uses: afc163/surge-preview@v1
-        id: preview_step
+      - name: save PR id
+        id: pr
+        run: echo "::set-output name=id::$(<pr-id.txt)"
+
+      - name: download dist artifact
+        uses: dawidd6/action-download-artifact@v2
         with:
-          surge_token: ${{ secrets.SURGE_TOKEN }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          dist: _site/
-          failOnError: 'true'
-          build: |
-            echo Deploying to surge.sh
-      - name: Get the preview_url
-        run: echo "url => ${{ steps.preview_step.outputs.preview_url }}"
+          workflow: ${{ github.event.workflow_run.workflow_id }}
+          workflow_conclusion: success
+          name: dist
+
+      - name: upload surge service
+        id: deploy
+        run: |
+          export DEPLOY_DOMAIN=https://vis-dashboard-preview-pr-${{ steps.pr.outputs.id }}.surge.sh
+          npx surge --project ./ --domain $DEPLOY_DOMAIN --token ${{ secrets.SURGE_TOKEN }}
+      - name: update status comment
+        uses: actions-cool/maintain-one-comment@v1.1.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: |
+            🎊 PR Preview has been successfully built and deployed to https://vis-dashboard-preview-pr-${{ steps.pr.outputs.id }}.surge.sh
+            
+            <img width="300" src="https://user-images.githubusercontent.com/507615/90250366-88233900-de6e-11ea-95a5-84f0762ffd39.png">
+            <!-- Sticky Pull Request Comment -->
+          body-include: '<!-- Sticky Pull Request Comment -->'
+          number: ${{ steps.pr.outputs.id }}
+
+      - name: The job failed
+        if: ${{ failure() }}
+        uses: actions-cool/maintain-one-comment@v1.1.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: |
+            😭 Deploy PR Preview failed.
+            <img width="300" src="https://user-images.githubusercontent.com/507615/90250824-4e066700-de6f-11ea-8230-600ecc3d6a6b.png">
+            <!-- Sticky Pull Request Comment -->
+          body-include: '<!-- Sticky Pull Request Comment -->'
+          number: ${{ steps.pr.outputs.id }}
+
+  failed:
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'failure'
+    steps:
+      - name: download pr artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: ${{ github.event.workflow_run.workflow_id }}
+          name: pr
+
+      - name: save PR id
+        id: pr
+        run: echo "::set-output name=id::$(<pr-id.txt)"
+
+      - name: The job failed
+        uses: actions-cool/maintain-one-comment@v1.1.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: |
+            😭 Deploy PR Preview failed.
+            <img width="300" src="https://user-images.githubusercontent.com/507615/90250824-4e066700-de6f-11ea-8230-600ecc3d6a6b.png">
+            <!-- Sticky Pull Request Comment -->
+          body-include: '<!-- Sticky Pull Request Comment -->'
+          number: ${{ steps.pr.outputs.id }}
