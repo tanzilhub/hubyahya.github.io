@@ -1,8 +1,8 @@
 name: Surge.sh Preview
 
 on:
-  pull_request_target:
-    types: [opened, synchronize, reopened, closed]
+  pull_request:
+    types: [opened, reopened, closed]
 
 jobs:
   preview:
