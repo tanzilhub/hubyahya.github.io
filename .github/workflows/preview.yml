@@ -3,7 +3,8 @@ on: # rebuild any PRs and main branch changes
   pull_request:
     # use default types + closed event type
     types: [opened, synchronize, reopened, closed]
-
+permissions:
+  contents: read
 jobs:
   preview: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
@@ -12,7 +13,7 @@ jobs:
       - name: Build
         run: docker run --privileged -i --rm -p 4000:4000 -e LC_ALL=C.UTF-8 -e LANG=C.UTF-8 -v $(pwd):/site debezium/website-builder bash -c "rake clean build[production]"
 
-      - uses: ./
+      - uses: actions/checkout@v2
         id: preview_step
         name: test afc163/surge-preview
         with:
