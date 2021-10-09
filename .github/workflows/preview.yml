@@ -19,7 +19,7 @@ jobs:
       with:
         surge_token: ${{ secrets.SURGE_TOKEN }}
         github_token: ${{ secrets.PUBLISH_GH_TOKEN }}
-        dist: _site/
+        dist: /site/_site
         failOnError: 'true'
         build: |
           echo Deploying to surge.sh
