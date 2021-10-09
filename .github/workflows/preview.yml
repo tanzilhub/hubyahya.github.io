@@ -1,21 +1,27 @@
-name: 'preview'
-on: # rebuild any PRs and main branch changes
+name: Surge.sh Preview
+
+on:
   pull_request:
-    # use default types + closed event type
-    types: [opened, synchronize, reopened, closed]
+    types: [opened]
+
 jobs:
-  preview: # make sure the action works on a clean machine without building
+  preview:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        id: preview_step
-        name: test afc163/surge-preview
-        with:
-          surge_token: ${{ secrets.SURGE_TOKEN }}
-          github_token: ${{ secrets.PUBLISH_GH_TOKEN }}
-          # teardown: 'true'
-          dist: _site/
-          build: |
-            docker run --privileged -i --rm -p 4000:4000 -e LC_ALL=C.UTF-8 -e LANG=C.UTF-8 -v $(pwd):/site debezium/website-builder bash -c "rake clean build[production]"
-      - name: Get the output url
-        run: echo "url => ${{ steps.preview_step.outputs.preview_url }}"
+    - uses: actions/checkout@v2
+
+    - name: Build
+      run: docker run --privileged -i --rm -p 4000:4000 -e LC_ALL=C.UTF-8 -e LANG=C.UTF-8 -v $(pwd):/site debezium/website-builder bash -c "rake clean build[staging]"
+
+    - name: Preview
+      uses: afc163/surge-preview@v1
+      id: preview_step
+      with:
+        surge_token: ${{ secrets.SURGE_TOKEN }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        dist: _site/
+        failOnError: 'true'
+        build: |
+          echo Deploying to surge.sh
+    - name: Get the preview_url
+      run: echo "url => ${{ steps.preview_step.outputs.preview_url }}"
