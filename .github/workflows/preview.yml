@@ -2,7 +2,7 @@ name: Surge.sh Preview
 
 on:
   pull_request_target:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, closed]
 
 jobs:
   preview:
@@ -21,6 +21,7 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         dist: _site/
         failOnError: 'true'
+        teardown: 'true'
         build: |
           echo Deploying to surge.sh
     - name: Get the preview_url
