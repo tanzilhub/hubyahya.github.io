@@ -12,7 +12,7 @@ jobs:
         name: test afc163/surge-preview
         with:
           surge_token: ${{ secrets.SURGE_TOKEN }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.PUBLISH_GH_TOKEN }}
           # teardown: 'true'
           dist: _site/
           build: |
