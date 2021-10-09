@@ -3,17 +3,6 @@ on: # rebuild any PRs and main branch changes
   pull_request:
     # use default types + closed event type
     types: [opened, synchronize, reopened, closed]
-permissions:
-  actions: read
-  checks: read
-  contents: read
-  deployments: read
-  issues: read
-  packages: read
-  pull-requests: write
-  repository-projects: read
-  security-events: read
-  statuses: read
 jobs:
   preview: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
